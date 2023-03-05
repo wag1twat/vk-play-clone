@@ -4,18 +4,9 @@ import { ThemingHeaderWrapper, ThemingHeader } from './ui'
 
 const HeaderLayout = (props: React.PropsWithChildren<BoxProps>) => {
   return (
-    <ThemingHeaderWrapper
-      ref={(ref) => {
-        const root = document.documentElement
-
-        root.style.setProperty(
-          '--header-height',
-          ref?.offsetHeight ? `${ref?.offsetHeight}px` : null
-        )
-      }}
-    >
+    <ThemingHeaderWrapper>
       <ThemingHeader>
-        <ContentLayout {...props} px={4} minHeight={16} />
+        <ContentLayout {...props} px={4} width="inherit" height="inherit" />
       </ThemingHeader>
     </ThemingHeaderWrapper>
   )

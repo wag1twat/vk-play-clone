@@ -6,10 +6,10 @@ interface PageLayoutProps extends BoxProps {}
 
 const PageLayout = ({ backgroundImage, ...props }: PageLayoutProps) => {
   return (
-    <ScrollLayout height={'calc(100vh - var(--header-height, 64px))'}>
+    <ScrollLayout height={'calc(100dvh - var(--chakra-header-height))'}>
       <Box
         position="relative"
-        minHeight={'calc(100vh - var(--header-height, 64px))'}
+        minHeight={'calc(100dvh - var(--chakra-header-height))'}
         __css={{
           ':before': {
             content: `""`,

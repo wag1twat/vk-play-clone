@@ -1,56 +1,63 @@
+import { Link, HStack, Icon, IconButton, Text } from '@chakra-ui/react'
 import {
-  Link,
-  HStack,
-  Icon,
-  FlexProps,
-  IconButton,
-  Flex,
-  Text,
-  useBreakpoint,
-} from '@chakra-ui/react'
-import {
-  Icon24Search,
   Icon24DiscountOutline,
   Icon24NotificationOutline,
   Icon24MessageOutline,
 } from '@vkontakte/icons'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Dropdown } from 'src/features'
-import { isRoute, routes } from 'src/proccess'
+import { Dropdown, DropdownItem } from 'src/features'
+import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
 import { PinnedIconButton } from 'src/shared/PinnedIconButton'
-import { GamesDropdown } from './GamesDropdown'
+import { useGamesDropdownData, useMediaDropdownData, useTournamentsDropdownData } from '../model'
 
-interface MenuProps extends FlexProps {
+interface MenuProps {
   isOpenSearch: boolean
-  searchToggle: () => void
-  searchInput: React.ReactNode
 }
 
-const searchVisibilityBreakpoints = ['base', 'xs', 'sm', 'md']
-
-export const Menu = ({ isOpenSearch, searchToggle, searchInput, ...props }: MenuProps) => {
+export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuProps>) => {
   const navigate = useNavigate()
 
   const location = useLocation()
 
-  const breakPoint = useBreakpoint()
+  const games = useGamesDropdownData()
 
-  const hiddenSearch = React.useMemo(
-    () => isOpenSearch && !searchVisibilityBreakpoints.includes(breakPoint),
-    [breakPoint, isOpenSearch]
-  )
+  const tournaments = useTournamentsDropdownData()
+
+  const media = useMediaDropdownData()
+
+  const mediaVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'], !isOpenSearch)
+
+  const tournamentsVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg', 'xlg'], !isOpenSearch)
+
+  const anyVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg', 'xlg', 'md'], !isOpenSearch)
+
+  const moreVisible = useCoincidenceBreakpoint(['xlg', 'md'])
+
+  const userVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'])
+
+  const moreDropdowns = React.useMemo(() => {
+    return ([] as DropdownItem[]).concat(
+      !mediaVisible ? [{ id: 1, group: 'media', label: 'Медиа', childrens: media }] : [],
+      !tournamentsVisible
+        ? [{ id: 1, group: 'tournaments', label: 'Турниры', childrens: tournaments }]
+        : []
+    )
+  }, [media, mediaVisible, tournaments, tournamentsVisible])
 
   return (
-    <Flex alignItems="center" justifyContent={'flex-end'} {...props}>
-      <HStack
-        spacing={6}
-        pt={2}
-        flexGrow={1}
-        hidden={isOpenSearch}
-        display={['none', 'none', 'none', 'flex']}
-      >
-        <GamesDropdown />
+    <HStack flexGrow={1} spacing={6} pt={2} justifyContent="flex-start">
+      {anyVisible && (
+        <Link
+          onClick={() => navigate(routes.games.path)}
+          variant="underlining-dropdown-trigger"
+          data-active={isRoute('games', location)}
+        >
+          <Text>Игры</Text>
+          <Dropdown dropdowns={games} />
+        </Link>
+      )}
+      {anyVisible && (
         <Link
           onClick={() => navigate(routes.live.path)}
           variant="underlining"
@@ -58,47 +65,53 @@ export const Menu = ({ isOpenSearch, searchToggle, searchInput, ...props }: Menu
         >
           <Text>Live</Text>
         </Link>
+      )}
+      {tournamentsVisible && (
         <Link
           onClick={() => navigate(routes.tournaments.path)}
-          variant="underlining"
+          variant="underlining-dropdown-trigger"
           data-active={isRoute('tournaments', location)}
-          position="relative"
         >
           <Text>Турниры</Text>
-          <Dropdown />
+          <Dropdown dropdowns={tournaments} />
         </Link>
+      )}
+      {mediaVisible && (
         <Link
           onClick={() => navigate(routes.media.path)}
-          variant="underlining"
+          variant="underlining-dropdown-trigger"
           data-active={isRoute('media', location)}
-          position="relative"
         >
           <Text>Медиа</Text>
-          <Dropdown />
+          <Dropdown dropdowns={media} />
         </Link>
-      </HStack>
-      {searchInput}
-      <IconButton
-        variant="icon"
-        aria-label="Поиск"
-        onClick={searchToggle}
-        hidden={hiddenSearch}
-        mt={2}
-        size="sm"
-      >
-        <Icon as={Icon24Search} />
-      </IconButton>
-      <HStack ml={3} mt={2} spacing={3} display={['none', 'none', 'none', 'flex']}>
-        <IconButton size="sm" variant="icon" aria-label="Акции">
-          <Icon as={Icon24DiscountOutline} />
-        </IconButton>
-        <PinnedIconButton size="sm" variant="icon" aria-label="Уведомления" pin={1}>
-          <Icon as={Icon24NotificationOutline} />
-        </PinnedIconButton>
-        <IconButton size="sm" variant="icon" aria-label="Мессенджер">
-          <Icon as={Icon24MessageOutline} />
-        </IconButton>
-      </HStack>
-    </Flex>
+      )}
+      {moreVisible && (
+        <Link
+          variant={'underlining-dropdown-trigger'}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+          }}
+        >
+          <Text>Ещё</Text>
+          <Dropdown dropdowns={moreDropdowns} />
+        </Link>
+      )}
+      {children}
+      {userVisible && (
+        <>
+          <IconButton size="sm" variant="icon" aria-label="Акции">
+            <Icon as={Icon24DiscountOutline} />
+          </IconButton>
+          <PinnedIconButton size="sm" variant="icon" aria-label="Уведомления" pin={1}>
+            <Icon as={Icon24NotificationOutline} />
+          </PinnedIconButton>
+          <IconButton size="sm" variant="icon" aria-label="Мессенджер">
+            <Icon as={Icon24MessageOutline} />
+          </IconButton>
+        </>
+      )}
+    </HStack>
   )
 }

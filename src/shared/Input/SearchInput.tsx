@@ -25,7 +25,7 @@ export const SearchInput = (props: SearchInputProps) => {
       <InputLeftElement>
         <Icon20Search />
       </InputLeftElement>
-      <Input id="header-toggle-search" placeholder="Поиск по сайту" {...inputProps} />
+      <Input placeholder="Поиск по сайту" {...inputProps} />
       <InputRightElement>
         <IconButton size="sm" variant={'icon'} aria-label="Закрыть поиск" onClick={onCancel}>
           <Icon as={Icon20Cancel} />

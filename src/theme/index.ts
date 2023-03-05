@@ -1,7 +1,8 @@
-import { ColorMode, extendTheme, HTMLChakraProps, StyleConfig, SystemStyleInterpolation, Theme, ThemingProps } from '@chakra-ui/react'
+import { ColorMode, extendTheme, HTMLChakraProps, Theme, ThemingProps } from '@chakra-ui/react'
 import { ButtonTheme } from './ButtonTheme'
 import { InputTheme } from './InputTheme'
 import { LinkTheme } from './LinkTheme'
+import { breakpoints } from './breakpoints'
 
 interface StyleOptions {
   theme: Theme
@@ -23,13 +24,16 @@ const colors = {
 
 const theme = extendTheme({
   styles: {
-    global: {
-      body: {
-        overflow: 'hidden',
-        fontFamily: `VK Sans Display', Arial, Helvetica, Helvetica Neue, sans-serif`
-      },
+    global: (props: StyleOptions) => {
+      return {
+        body: {
+          overflow: 'hidden',
+          fontFamily: `VK Sans Display', Arial, Helvetica, Helvetica Neue, sans-serif`,
+        },
+      }
     },
   },
+  breakpoints,
   colors: {
     ...colors,
   },
@@ -44,16 +48,17 @@ const theme = extendTheme({
           background: '#000',
           color: '#fff',
           zIndex: options.theme.zIndices.sticky,
-          position: 'sticky'
+          position: 'sticky',
+          height: 'var(--chakra-header-height)',
         }
       },
     },
     ThemingHeader: {
       baseStyle: (options: StyleOptions): HTMLChakraProps<'div'> & ThemingProps => {
         return {
-          height: '100%',
           maxWidth: '100%',
           backgroundColor: 'gray.light-brand-50',
+          height: 'var(--chakra-header-height)',
         }
       },
     },
@@ -113,9 +118,9 @@ const theme = extendTheme({
           textAlign: 'center',
           lineHeight: 3,
           letterSpacing: '.4px',
-          display: 'inline-block'
+          display: 'inline-block',
         }
-      }
+      },
     },
   },
 })

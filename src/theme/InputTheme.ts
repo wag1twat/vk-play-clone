@@ -21,13 +21,13 @@ const InputTheme: StyleConfig = {
         },
       },
       addon: {
-        color: "white.brand.500", 
+        color: 'white.brand-500',
         opacity: '.6',
       },
       element: {
-        color: "white.brand.500", 
+        color: 'white.brand-500',
         opacity: '.6',
-      }
+      },
     },
   },
 }

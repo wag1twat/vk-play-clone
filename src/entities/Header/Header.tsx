@@ -1,68 +1,108 @@
 import React from 'react'
-import { Icon20MenuOutline } from '@vkontakte/icons'
-import { Flex, HStack, Icon, IconButton, useBoolean, VStack } from '@chakra-ui/react'
+import { Icon20MenuOutline, Icon24Search } from '@vkontakte/icons'
+import { Flex, HStack, Icon, IconButton, useDisclosure } from '@chakra-ui/react'
 import { Logo, Menu } from './ui'
 import { SearchInput } from 'src/shared/Input'
 import { HeaderLayout } from 'src/shared/Layout'
+import { useCoincidenceBreakpoint } from 'src/proccess'
+import { BasicDialog } from 'src/features'
 
 const Header = () => {
-  const [isOpenSearch, searchControl] = useBoolean(false)
+  const searchInputController = useDisclosure()
 
   const [searchValue, setSearchValue] = React.useState('')
 
-  const searchInput = React.useMemo(() => {
-    return (
-      <SearchInput
-        inputGroupProps={{
-          onBlur: searchControl.off,
-        }}
-        inputProps={{
-          value: searchValue,
-          onChange: (e) => setSearchValue(e.target.value),
-        }}
-        onCancel={(e) => {
-          e.stopPropagation()
-          searchControl.off()
-        }}
-      />
-    )
-  }, [searchControl, searchValue])
+  const modalVisible = useCoincidenceBreakpoint(['sm', 'xs', 'base'])
 
+  const menuButtonVisible = useCoincidenceBreakpoint(['base', 'xs', 'sm'])
   return (
     <HeaderLayout>
-      <VStack spacing={3} width="inherit">
-        <HStack spacing={6} width="inherit" py={3} height={16}>
+      <Flex height="100%" justifyContent={'center'} flexDirection={'column'}>
+        <HStack spacing={6}>
           <HStack spacing={[3, 3, 3, 0]}>
-            <IconButton
-              variant="icon"
-              aria-label="Меню"
-              display={['flex', 'flex', 'flex', 'none']}
-              size="sm"
-            >
-              <Icon as={Icon20MenuOutline} />
-            </IconButton>
+            {menuButtonVisible && (
+              <IconButton variant="icon" aria-label="Меню" size="sm">
+                <Icon as={Icon20MenuOutline} />
+              </IconButton>
+            )}
             <Logo />
           </HStack>
-          <Menu
-            flexGrow={1}
-            isOpenSearch={isOpenSearch}
-            searchToggle={searchControl.toggle}
-            searchInput={
-              <Flex width="100%" hidden={!isOpenSearch} display={['none', 'none', 'none', 'flex']}>
-                {searchInput}
-              </Flex>
-            }
-          />
+          <Menu isOpenSearch={searchInputController.isOpen}>
+            <Flex flexGrow={1} justifyContent="flex-end">
+              {searchInputController.isOpen && !modalVisible && (
+                <SearchInput
+                  inputProps={{
+                    value: searchValue,
+                    onChange: (e) => {
+                      e.stopPropagation()
+                      setSearchValue(e.target.value)
+                    },
+                    autoFocus: true,
+                    onBlur: searchInputController.onClose,
+                  }}
+                  onCancel={(e) => {
+                    e.stopPropagation()
+                    searchInputController.onClose()
+                  }}
+                />
+              )}
+              <IconButton
+                hidden={searchInputController.isOpen && !modalVisible}
+                variant="icon"
+                aria-label="Поиск"
+                onClick={() => {
+                  searchInputController.onToggle()
+                }}
+                size="sm"
+              >
+                <Icon as={Icon24Search} />
+              </IconButton>
+            </Flex>
+          </Menu>
         </HStack>
-        <Flex
-          width="inherit"
-          hidden={!isOpenSearch}
-          pb={3}
-          display={['flex', 'flex', 'flex', 'none']}
-        >
-          {searchInput}
-        </Flex>
-      </VStack>
+      </Flex>
+      {modalVisible && (
+        <BasicDialog
+          disclosure={searchInputController}
+          autoFocus
+          useModalOverlay
+          modalOverlayProps={{
+            top: 'var(--chakra-header-height)',
+          }}
+          contentProps={{
+            width: 'full',
+            maxWidth: 'unset',
+            borderRadius: 0,
+            backgroundColor: '#000',
+            m: 0,
+            containerProps: {
+              top: 'var(--chakra-header-height)',
+            },
+          }}
+          bodyProps={{
+            width: 'full',
+            px: 4,
+            backgroundColor: 'gray.light-brand-50',
+          }}
+          Body={(props) => {
+            return (
+              <SearchInput
+                inputProps={{
+                  value: searchValue,
+                  onChange: (e) => {
+                    e.stopPropagation()
+                    setSearchValue(e.target.value)
+                  },
+                }}
+                onCancel={(e) => {
+                  e.stopPropagation()
+                  props.onClose()
+                }}
+              />
+            )
+          }}
+        />
+      )}
     </HeaderLayout>
   )
 }

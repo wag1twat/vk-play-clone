@@ -1,6 +1,6 @@
 const translate = {
-    ru: {},
-    en: {}
+  ru: {},
+  en: {},
 }
 
 export { translate }
