@@ -19,14 +19,16 @@ interface PinnedIconButtonProps extends IconButtonProps {
   pin: React.ReactNode
 }
 
-const PinnedIconButton = ({ pin, display, ...props }: PinnedIconButtonProps) => {
+const PinnedIconButton = ({ pin, children, ...props }: PinnedIconButtonProps) => {
   return (
-    <Box position="relative" display={display}>
-      <IconButton {...props} />
-      <Pin position={'absolute'} top={0} left={0.5}>
-        {pin}
-      </Pin>
-    </Box>
+    <IconButton {...props} position="relative">
+      <>
+        {children}
+        <Pin position={'absolute'} top={0} left={0.5}>
+          {pin}
+        </Pin>
+      </>
+    </IconButton>
   )
 }
 
