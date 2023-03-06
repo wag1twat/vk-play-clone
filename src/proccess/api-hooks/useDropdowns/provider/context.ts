@@ -1,11 +1,11 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
-import { DropdownItem } from 'src/features'
+import { Dropdown } from '../types'
 
 interface Context {
-  media: UseQueryResult<DropdownItem[]>
-  games: UseQueryResult<DropdownItem[]>
-  tournaments: UseQueryResult<DropdownItem[]>
+  media: UseQueryResult<Dropdown[]>
+  games: UseQueryResult<Dropdown[]>
+  tournaments: UseQueryResult<Dropdown[]>
 }
 
 export const context = React.createContext({} as Context)

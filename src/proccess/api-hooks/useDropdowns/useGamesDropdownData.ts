@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { DropdownItem } from 'src/features'
+import { Dropdown } from './types'
 
 export const useGamesDropdownData = () => {
   const data = React.useMemo(
@@ -59,7 +59,7 @@ export const useGamesDropdownData = () => {
 
   return useQuery(['games-dropdowns'], {
     queryFn: async () => {
-      return new Promise<{ data: DropdownItem[] }>((resolve) => {
+      return new Promise<{ data: Dropdown[] }>((resolve) => {
         setTimeout(() => {
           resolve({ data })
         }, Math.ceil(Math.random() * 1000))
