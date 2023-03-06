@@ -1,40 +1,48 @@
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useQuery } from 'react-query'
 import { DropdownItem } from 'src/features'
 
-export const useMediaDropdownData = (): DropdownItem[] => {
-  const navigate = useNavigate()
+export const useMediaDropdownData = () => {
+  const data = React.useMemo(
+    () => [
+      {
+        id: 0,
+        group: '1',
+        label: 'Все материалы',
+      },
+      {
+        id: 1,
+        group: '1',
+        label: 'Новости игр',
+      },
+      {
+        id: 2,
+        group: '1',
+        label: 'Киберспорт',
+      },
+      {
+        id: 3,
+        group: '2',
+        label: 'Сообщество',
+      },
+      {
+        id: 4,
+        group: '2',
+        label: 'Игры Будущего',
+      },
+    ],
+    []
+  )
 
-  return [
-    {
-      id: 0,
-      group: '1',
-      label: 'Все материалы',
-      action: () => navigate('#'),
+  return useQuery(['media-dropdowns'], {
+    queryFn: async () => {
+      return new Promise<{ data: DropdownItem[] }>((resolve) => {
+        setTimeout(() => {
+          resolve({ data })
+        }, Math.ceil(Math.random() * 1000))
+      })
     },
-    {
-      id: 1,
-      group: '1',
-      label: 'Новости игр',
-      action: () => navigate('#'),
-    },
-    {
-      id: 2,
-      group: '1',
-      label: 'Киберспорт',
-      action: () => navigate('#'),
-    },
-    {
-      id: 3,
-      group: '2',
-      label: 'Сообщество',
-      action: () => navigate('#'),
-    },
-    {
-      id: 4,
-      group: '2',
-      label: 'Игры Будущего',
-      action: () => navigate('#'),
-    },
-  ]
+    select: ({ data }) => data,
+    keepPreviousData: true,
+  })
 }
-

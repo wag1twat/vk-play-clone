@@ -1,14 +1,13 @@
 import { BoxProps } from '@chakra-ui/react'
-import { ContentLayout } from '../ContentLayout'
-import { ThemingHeaderWrapper, ThemingHeader } from './ui'
+import { ContentLayout, HeaderBackground, HeaderWrapper } from 'src/theme/components'
 
 const HeaderLayout = (props: React.PropsWithChildren<BoxProps>) => {
   return (
-    <ThemingHeaderWrapper>
-      <ThemingHeader>
-        <ContentLayout {...props} px={4} width="inherit" height="inherit" />
-      </ThemingHeader>
-    </ThemingHeaderWrapper>
+    <HeaderWrapper>
+      <HeaderBackground>
+        <ContentLayout {...props} height="var(--chakra-header-height)" />
+      </HeaderBackground>
+    </HeaderWrapper>
   )
 }
 

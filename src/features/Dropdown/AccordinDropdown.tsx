@@ -7,6 +7,8 @@ import {
   Icon,
   chakra,
   Divider,
+  Flex,
+  FlexProps,
 } from '@chakra-ui/react'
 import { Icon24ChevronDown, Icon24ChevronUp } from '@vkontakte/icons'
 import React from 'react'
@@ -15,25 +17,40 @@ import { useDropdownConfig } from './model'
 import { DropdownItem } from './types'
 import { AccordinItemButton } from './ui'
 
-interface AccordinDropdownProps {
+interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   dropdowns?: DropdownItem[]
   preventBorderDeep?: number
+  onItemClick?: (item: DropdownItem) => void
   __deep?: number
 }
 
-const iconMargin = 2
 const iconSize = 6
 
 export const AccordinDropdown = React.memo(
-  ({ dropdowns = [], preventBorderDeep = 1, __deep = 1 }: AccordinDropdownProps) => {
+  ({
+    dropdowns = [],
+    onItemClick,
+    preventBorderDeep = 1,
+    __deep = 1,
+    ...props
+  }: AccordinDropdownProps) => {
     const { isRender, group } = useDropdownConfig(dropdowns)
+
+    const handleItemClick = React.useCallback(
+      (item: DropdownItem) => () => {
+        if (onItemClick) {
+          onItemClick(item)
+        }
+      },
+      [onItemClick]
+    )
 
     if (!isRender) {
       return null
     }
 
     return (
-      <React.Fragment>
+      <Flex width="full" flexDirection={'column'} {...props}>
         {group.entries.map(([key, items], index) => {
           return (
             <React.Fragment key={key}>
@@ -46,9 +63,13 @@ export const AccordinDropdown = React.memo(
                           return (
                             <AccordinItemButton
                               py={1}
-                              pr={2}
-                              pl={item.leftIcon ? 0 : iconSize + iconMargin * 2}
-                              onClick={item.action}
+                              isLoading={item.isLoading}
+                              leftIcon={
+                                <chakra.span width={iconSize} height={iconSize}>
+                                  {item.leftIcon}
+                                </chakra.span>
+                              }
+                              onClick={handleItemClick(item)}
                             >
                               {item.label}
                             </AccordinItemButton>
@@ -57,35 +78,28 @@ export const AccordinDropdown = React.memo(
                         return (
                           <>
                             <AccordionButton
-                              outline="none"
-                              justifyContent="space-between"
-                              cursor={'pointer'}
-                              _focus={{
-                                boxShadow: 'none',
-                              }}
+                              as={AccordinItemButton}
                               py={2}
-                              pr={2}
-                              pl={item.leftIcon ? 0 : iconSize + iconMargin * 2}
-                            >
-                              {item.leftIcon && (
-                                <chakra.span width={iconSize} height={iconSize} mx={iconMargin}>
+                              px={0}
+                              isLoading={item.isLoading}
+                              fontSize={'lg'}
+                              fontWeight="400"
+                              leftIcon={
+                                <chakra.span width={iconSize} height={iconSize}>
                                   {item.leftIcon}
                                 </chakra.span>
-                              )}
-                              <chakra.span
-                                textAlign="left"
-                                fontSize={'lg'}
-                                fontWeight="400"
-                                flexGrow={1}
-                                lineHeight={iconSize}
-                              >
-                                {item.label}
-                              </chakra.span>
-                              <Icon as={isExpanded ? Icon24ChevronUp : Icon24ChevronDown} />
+                              }
+                              rightIcon={
+                                <Icon as={isExpanded ? Icon24ChevronUp : Icon24ChevronDown} />
+                              }
+                              onClick={handleItemClick(item)}
+                            >
+                              {item.label}
                             </AccordionButton>
                             <AccordionPanel p={0} fontSize="md" color="inherit">
                               <AccordinDropdown
                                 key={item.id}
+                                onItemClick={onItemClick}
                                 dropdowns={item.childrens}
                                 preventBorderDeep={preventBorderDeep}
                                 __deep={__deep + 1}
@@ -100,7 +114,7 @@ export const AccordinDropdown = React.memo(
                 <Box
                   py={2}
                   pr={2}
-                  pl={iconSize + iconMargin * 2}
+                  pl={8}
                   hidden={!(index !== group.entries.length - 1) || __deep === preventBorderDeep}
                 >
                   <Divider />
@@ -109,8 +123,8 @@ export const AccordinDropdown = React.memo(
             </React.Fragment>
           )
         })}
-      </React.Fragment>
+      </Flex>
     )
   },
-  (prev, next) => !deepEqual(prev, next)
+  (prev, next) => deepEqual(prev, next)
 )

@@ -1,18 +1,6 @@
 import React from 'react'
-import {
-  chakra,
-  forwardRef,
-  HTMLChakraProps,
-  IconButton,
-  IconButtonProps,
-  ThemingProps,
-  useStyleConfig,
-} from '@chakra-ui/react'
-
-const Pin = forwardRef<HTMLChakraProps<'span'> & ThemingProps, 'span'>((props, ref) => {
-  const styles = useStyleConfig('ThemingPin')
-  return React.createElement(chakra.span, { __css: styles, ...props, ref })
-})
+import { IconButton, IconButtonProps } from '@chakra-ui/react'
+import { Pin } from 'src/theme/components'
 
 interface PinnedIconButtonProps extends IconButtonProps {
   pin: React.ReactNode

@@ -38,7 +38,6 @@ export const HoverDropdown = ({ dropdowns, ...props }: DropdownProps) => {
               return (
                 <HoverItem
                   key={item.id}
-                  onClick={item.action}
                   position="relative"
                   _hover={{
                     opacity: 1,

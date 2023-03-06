@@ -1,15 +1,10 @@
-import { Link, HStack, Icon, IconButton, Text } from '@chakra-ui/react'
-import {
-  Icon24DiscountOutline,
-  Icon24NotificationOutline,
-  Icon24MessageOutline,
-} from '@vkontakte/icons'
+import { Link, HStack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { HoverDropdown, DropdownItem } from 'src/features'
 import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
 import { useDropdowns } from 'src/proccess/api-hooks'
-import { PinnedIconButton } from 'src/shared/PinnedIconButton'
+import { UserMenu } from './UserMenu'
 
 interface MenuProps {
   isOpenSearch: boolean
@@ -30,27 +25,26 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
 
   const moreVisible = useCoincidenceBreakpoint(['xlg', 'md'])
 
-  const userVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'])
-
   const moreDropdowns = React.useMemo(() => {
     return ([] as DropdownItem[]).concat(
-      !mediaVisible ? [{ id: 1, group: 'media', label: 'Медиа', childrens: media }] : [],
+      !mediaVisible ? [{ id: 1, group: 'media', label: 'Медиа', childrens: media.data }] : [],
       !tournamentsVisible
-        ? [{ id: 1, group: 'tournaments', label: 'Турниры', childrens: tournaments }]
+        ? [{ id: 1, group: 'tournaments', label: 'Турниры', childrens: tournaments.data }]
         : []
     )
-  }, [media, mediaVisible, tournaments, tournamentsVisible])
+  }, [media.data, mediaVisible, tournaments.data, tournamentsVisible])
 
   return (
     <HStack flexGrow={1} spacing={6} pt={2} justifyContent="flex-start">
       {anyVisible && (
         <Link
           onClick={() => navigate(routes.games.path)}
-          variant="underlining-dropdown-trigger"
+          variant="underlining"
           data-active={isRoute('games', location)}
+          data-dropdown={true}
         >
           <Text>Игры</Text>
-          <HoverDropdown dropdowns={games} />
+          <HoverDropdown dropdowns={games.data} />
         </Link>
       )}
       {anyVisible && (
@@ -65,26 +59,29 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
       {tournamentsVisible && (
         <Link
           onClick={() => navigate(routes.tournaments.path)}
-          variant="underlining-dropdown-trigger"
+          variant="underlining"
           data-active={isRoute('tournaments', location)}
+          data-dropdown={true}
         >
           <Text>Турниры</Text>
-          <HoverDropdown dropdowns={tournaments} />
+          <HoverDropdown dropdowns={tournaments.data} />
         </Link>
       )}
       {mediaVisible && (
         <Link
           onClick={() => navigate(routes.media.path)}
-          variant="underlining-dropdown-trigger"
+          variant="underlining"
+          data-dropdown={true}
           data-active={isRoute('media', location)}
         >
           <Text>Медиа</Text>
-          <HoverDropdown dropdowns={media} />
+          <HoverDropdown dropdowns={media.data} />
         </Link>
       )}
       {moreVisible && (
         <Link
-          variant={'underlining-dropdown-trigger'}
+          data-dropdown={true}
+          variant={'underlining'}
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
@@ -95,19 +92,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
         </Link>
       )}
       {children}
-      {userVisible && (
-        <>
-          <IconButton size="sm" variant="icon" aria-label="Акции">
-            <Icon as={Icon24DiscountOutline} />
-          </IconButton>
-          <PinnedIconButton size="sm" variant="icon" aria-label="Уведомления" pin={1}>
-            <Icon as={Icon24NotificationOutline} />
-          </PinnedIconButton>
-          <IconButton size="sm" variant="icon" aria-label="Мессенджер">
-            <Icon as={Icon24MessageOutline} />
-          </IconButton>
-        </>
-      )}
+      <UserMenu />
     </HStack>
   )
 }

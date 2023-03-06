@@ -1,46 +1,21 @@
-import { Box, BoxProps } from '@chakra-ui/react'
-import { ContentLayout } from '../ContentLayout'
-import { ScrollLayout } from '../ScrollLayout'
+import { BoxProps } from '@chakra-ui/react'
+import { ScrollLayout, PageBackground, ContentLayout } from 'src/theme/components'
 
 interface PageLayoutProps extends BoxProps {}
 
-const PageLayout = ({ backgroundImage, ...props }: PageLayoutProps) => {
+const PageLayout = ({
+  backgroundImage = 'url(https://vkplay.ru/hotbox/gem_static/showcase/frontend/production/build/2597a9afc58a5907c613bf7bb6ddd6f3.svg);',
+  ...props
+}: PageLayoutProps) => {
   return (
-    <ScrollLayout height={'calc(100dvh - var(--chakra-header-height))'}>
-      <Box
-        position="relative"
-        minHeight={'calc(100dvh - var(--chakra-header-height))'}
-        __css={{
-          ':before': {
-            content: `""`,
-            position: 'absolute',
-            zIndex: -1,
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '1080px',
-            background: 'no-repeat 50% 0',
-            maxHeight: '100%',
-          },
-          ':after': {
-            content: `""`,
-            position: 'absolute',
-            zIndex: -2,
-            top: 0,
-            left: 0,
-            right: 0,
-            background: '#000',
-            height: '100%',
-          },
-        }}
+    <ScrollLayout height={'calc(100vh - var(--chakra-header-height))'}>
+      <PageBackground
         _before={{
-          backgroundImage:
-            'url(https://vkplay.ru/hotbox/gem_static/showcase/frontend/production/build/2597a9afc58a5907c613bf7bb6ddd6f3.svg);',
-          backgroundSize: '1920px auto',
+          backgroundImage,
         }}
       >
-        <ContentLayout {...props} px={4} />
-      </Box>
+        <ContentLayout {...props} />
+      </PageBackground>
     </ScrollLayout>
   )
 }

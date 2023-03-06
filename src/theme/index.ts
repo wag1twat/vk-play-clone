@@ -1,8 +1,7 @@
-import { ColorMode, extendTheme, HTMLChakraProps, Theme, ThemingProps } from '@chakra-ui/react'
-import { ButtonTheme } from './ButtonTheme'
-import { InputTheme } from './InputTheme'
-import { LinkTheme } from './LinkTheme'
+import { ColorMode, extendTheme, Theme } from '@chakra-ui/react'
+
 import { breakpoints } from './breakpoints'
+import { components } from './components'
 
 interface StyleOptions {
   theme: Theme
@@ -37,92 +36,7 @@ const theme = extendTheme({
   colors: {
     ...colors,
   },
-  components: {
-    Link: LinkTheme,
-    Input: InputTheme,
-    Button: ButtonTheme,
-    ThemingHeaderWrapper: {
-      baseStyle: (options: StyleOptions): HTMLChakraProps<'div'> & ThemingProps => {
-        return {
-          width: '100%',
-          background: '#000',
-          color: '#fff',
-          zIndex: options.theme.zIndices.sticky,
-          position: 'sticky',
-          height: 'var(--chakra-header-height)',
-        }
-      },
-    },
-    ThemingHeader: {
-      baseStyle: (options: StyleOptions): HTMLChakraProps<'div'> & ThemingProps => {
-        return {
-          maxWidth: '100%',
-          backgroundColor: 'gray.light-brand-50',
-          height: 'var(--chakra-header-height)',
-        }
-      },
-    },
-    ThemingContent: {
-      baseStyle: (options: StyleOptions): HTMLChakraProps<'div'> & ThemingProps => {
-        return {
-          width: '100%',
-          maxWidth: '7xl',
-          margin: 'auto',
-        }
-      },
-    },
-    ThemingScroll: {
-      baseStyle(options: StyleOptions) {
-        return {
-          overflow: 'overlay',
-          '&::-webkit-scrollbar': {
-            backgroundColor: ' rgba(0,0,0,0)',
-            width: '16px',
-            height: '16px',
-            zIndex: '999999',
-          },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: 'rgba(0,0,0,0)',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderRadius: '16px',
-            border: '0px solid #fff',
-          },
-          '&::-webkit-scrollbar-button': {
-            display: 'none',
-          },
-          '&:hover::-webkit-scrollbar-thumb': {
-            backgroundColor: '#a0a0a5',
-            border: '4px solid #fff',
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#a0a0a5',
-            border: '4px solid #f4f4f4',
-          },
-        }
-      },
-    },
-    ThemingPin: {
-      baseStyle: (options: StyleOptions) => {
-        return {
-          position: 'absolute',
-          background: 'linear-gradient(0deg, #e95704, #f6bd4d);',
-          fontSize: 'x-small',
-          borderRadius: '9px',
-          border: '2px solid #222',
-          minHeight: 2,
-          minWidth: 3,
-          padding: '2px 5px 1px',
-          transition: 'background-color .1s',
-          textAlign: 'center',
-          lineHeight: 3,
-          letterSpacing: '.4px',
-          display: 'inline-block',
-        }
-      },
-    },
-  },
+  components,
 })
 
 export default theme

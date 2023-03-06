@@ -3,7 +3,7 @@ interface DropdownItem {
   label: string
   group: string
   leftIcon?: React.ReactNode
-  action?: () => void
+  isLoading?: boolean
   childrens?: DropdownItem[]
 }
 

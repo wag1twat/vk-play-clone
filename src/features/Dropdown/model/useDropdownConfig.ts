@@ -9,6 +9,6 @@ export const useDropdownConfig = (dropdowns: DropdownItem[] = []) => {
 
   return {
     isRender,
-    group
+    group,
   }
 }
