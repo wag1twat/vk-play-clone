@@ -11,7 +11,7 @@ const PinnedIconButton = ({ pin, children, ...props }: PinnedIconButtonProps) =>
     <IconButton {...props} position="relative">
       <>
         {children}
-        <Pin position={'absolute'} top={0} left={0.5}>
+        <Pin hidden={!pin} position={'absolute'} top={0} left={0.5}>
           {pin}
         </Pin>
       </>

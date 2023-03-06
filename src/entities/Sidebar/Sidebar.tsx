@@ -6,11 +6,25 @@ import {
   Flex,
   Icon,
   VStack,
+  chakra,
+  IconButton,
+  Divider,
 } from '@chakra-ui/react'
-import { Icon24Game, Icon28EmblemOutline, Icon24BookSpreadOutline } from '@vkontakte/icons'
+import {
+  Icon24Game,
+  Icon28EmblemOutline,
+  Icon24BookSpreadOutline,
+  Icon24NotificationOutline,
+  Icon24QuestionOutline,
+  Icon24UserOutline,
+  Icon24CopyOutline,
+  Icon24Settings,
+} from '@vkontakte/icons'
 import { AccordinDropdown } from 'src/features'
+import { AccordionItemButton } from 'src/features/Dropdown/ui'
 import { useDropdowns } from 'src/proccess/api-hooks'
-import { ScrollLayout } from 'src/theme/components'
+import { Pin, ScrollLayout } from 'src/theme/components'
+import { useNotifiers } from '../Notifiers'
 import { useSidebar } from './provider'
 
 export type SidebarRefCurrent = {
@@ -19,6 +33,8 @@ export type SidebarRefCurrent = {
 } | null
 
 const Sidebar = () => {
+  const { notifications } = useNotifiers()
+
   const sidebar = useSidebar()
 
   const { games, tournaments, media } = useDropdowns()
@@ -41,12 +57,11 @@ const Sidebar = () => {
       >
         <DrawerBody px={2}>
           <Flex height="100%" flexDirection={'column'}>
-            <ScrollLayout px={2}>
+            <ScrollLayout px={2} flexGrow={1}>
               <AccordinDropdown
                 onItemClick={(item) => {
                   console.log(item)
                 }}
-                flexGrow={1}
                 dropdowns={[
                   {
                     id: 0,
@@ -80,7 +95,60 @@ const Sidebar = () => {
                 ]}
               />
             </ScrollLayout>
-            <VStack height="300px"></VStack>
+            <VStack px={2} spacing={2} height="fit-content" fontSize={'lg'} color="white.brand-900">
+              <Divider color="inherit" />
+              <AccordionItemButton
+                leftIcon={<Icon color="white.brand-700" as={Icon24NotificationOutline} />}
+                rightIcon={
+                  <Pin hidden={!notifications.data?.length} position="static">
+                    {notifications.data?.length}
+                  </Pin>
+                }
+                fontSize="inherit"
+              >
+                Уведомления
+              </AccordionItemButton>
+              <AccordionItemButton
+                fontSize="inherit"
+                leftIcon={<Icon color="white.brand-700" as={Icon24QuestionOutline} />}
+              >
+                Служба поддержки
+              </AccordionItemButton>
+              <AccordionItemButton
+                fontSize="inherit"
+                leftIcon={<Icon color="white.brand-700" as={Icon24UserOutline} />}
+              >
+                Профиль VK Play
+              </AccordionItemButton>
+              <Flex
+                fontSize="inherit"
+                color="white.brand-150"
+                fontWeight={400}
+                letterSpacing=".6px"
+                width="100%"
+                pl={8}
+              >
+                <chakra.span userSelect={'none'}>ID: 231555440</chakra.span>
+                <chakra.span>
+                  <IconButton
+                    ml={2}
+                    size="sm"
+                    color="white.brand-150"
+                    variant="icon"
+                    aria-label="Скопировать ID"
+                  >
+                    <Icon as={Icon24CopyOutline} />
+                  </IconButton>
+                </chakra.span>
+              </Flex>
+              <AccordionItemButton
+                fontSize="inherit"
+                leftIcon={<Icon color="white.brand-700" as={Icon24Settings} />}
+              >
+                Настройки профиля
+              </AccordionItemButton>
+              <Divider color="inherit" />
+            </VStack>
           </Flex>
         </DrawerBody>
       </DrawerContent>

@@ -4,11 +4,13 @@ import {
   Icon24MessageOutline,
   Icon24NotificationOutline,
 } from '@vkontakte/icons'
-import React from 'react'
+import { useNotifiers } from 'src/entities'
 import { useCoincidenceBreakpoint } from 'src/proccess'
 import { PinnedIconButton } from 'src/shared/PinnedIconButton'
 
 export const UserMenu = () => {
+  const { notifications } = useNotifiers()
+
   const userVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'])
 
   if (!userVisible) {
@@ -19,7 +21,12 @@ export const UserMenu = () => {
       <IconButton size="sm" variant="icon" aria-label="Акции">
         <Icon as={Icon24DiscountOutline} />
       </IconButton>
-      <PinnedIconButton size="sm" variant="icon" aria-label="Уведомления" pin={1}>
+      <PinnedIconButton
+        size="sm"
+        variant="icon"
+        aria-label="Уведомления"
+        pin={notifications.data?.length}
+      >
         <Icon as={Icon24NotificationOutline} />
       </PinnedIconButton>
       <IconButton size="sm" variant="icon" aria-label="Мессенджер">

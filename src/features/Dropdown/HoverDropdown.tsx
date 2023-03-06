@@ -40,7 +40,6 @@ export const HoverDropdown = ({ dropdowns, ...props }: DropdownProps) => {
                   key={item.id}
                   position="relative"
                   _hover={{
-                    opacity: 1,
                     background: 'blackAlpha.400',
                     '& > .dropdown': {
                       visibility: 'visible',

@@ -9,7 +9,7 @@ export const HoverCard = (props: ListProps) => {
       spacing={0}
       fontSize={'sm'}
       fontWeight="normal"
-      color="white.brand-500"
+      color="white.brand-700"
       {...props}
     />
   )

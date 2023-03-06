@@ -15,7 +15,7 @@ import React from 'react'
 import { deepEqual } from 'shulga-app-core'
 import { useDropdownConfig } from './model'
 import { DropdownItem } from './types'
-import { AccordinItemButton } from './ui'
+import { AccordionItemButton } from './ui'
 
 interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   dropdowns?: DropdownItem[]
@@ -54,14 +54,14 @@ export const AccordinDropdown = React.memo(
         {group.entries.map(([key, items], index) => {
           return (
             <React.Fragment key={key}>
-              <Accordion defaultIndex={[0]} allowMultiple color="white.brand-500">
+              <Accordion allowMultiple>
                 {items.map((item) => {
                   return (
                     <AccordionItem key={item.id} border="none">
                       {({ isExpanded }) => {
                         if (!item.childrens || item.childrens.length === 0) {
                           return (
-                            <AccordinItemButton
+                            <AccordionItemButton
                               py={1}
                               isLoading={item.isLoading}
                               leftIcon={
@@ -70,22 +70,27 @@ export const AccordinDropdown = React.memo(
                                 </chakra.span>
                               }
                               onClick={handleItemClick(item)}
+                              color="white.brand-700"
                             >
                               {item.label}
-                            </AccordinItemButton>
+                            </AccordionItemButton>
                           )
                         }
                         return (
                           <>
                             <AccordionButton
-                              as={AccordinItemButton}
+                              as={AccordionItemButton}
                               py={2}
                               px={0}
                               isLoading={item.isLoading}
                               fontSize={'lg'}
                               fontWeight="400"
                               leftIcon={
-                                <chakra.span width={iconSize} height={iconSize}>
+                                <chakra.span
+                                  width={iconSize}
+                                  height={iconSize}
+                                  color="white.brand-700"
+                                >
                                   {item.leftIcon}
                                 </chakra.span>
                               }
@@ -93,10 +98,11 @@ export const AccordinDropdown = React.memo(
                                 <Icon as={isExpanded ? Icon24ChevronUp : Icon24ChevronDown} />
                               }
                               onClick={handleItemClick(item)}
+                              color="white.brand-900"
                             >
                               {item.label}
                             </AccordionButton>
-                            <AccordionPanel p={0} fontSize="md" color="inherit">
+                            <AccordionPanel p={0} fontSize="md">
                               <AccordinDropdown
                                 key={item.id}
                                 onItemClick={onItemClick}
@@ -116,6 +122,7 @@ export const AccordinDropdown = React.memo(
                   pr={2}
                   pl={8}
                   hidden={!(index !== group.entries.length - 1) || __deep === preventBorderDeep}
+                  color="white.brand-700"
                 >
                   <Divider />
                 </Box>

@@ -1,20 +1,19 @@
 import { Button, ButtonProps, forwardRef, chakra } from '@chakra-ui/react'
 import React from 'react'
 
-export const AccordinItemButton = forwardRef(
+export const AccordionItemButton = forwardRef(
   ({ children, ...props }: React.PropsWithChildren<ButtonProps>, ref) => {
     return (
       <Button
         variant="link"
         width="full"
-        color="inherit"
-        opacity={'.8'}
         fontWeight="400"
         textAlign={'left'}
         outline="none"
+        color="white.brand"
         _hover={{
           textDecoration: 'none',
-          opacity: 1,
+          color: 'white.brand',
         }}
         _focus={{
           boxShadow: 'none',

@@ -1,3 +1,3 @@
 export * from './HoverCard'
 export * from './HoverItem'
-export * from './AccordinItemButton'
+export * from './AccordionItemButton'

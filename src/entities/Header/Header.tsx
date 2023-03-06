@@ -11,7 +11,7 @@ import { useSidebar } from '../Sidebar'
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const searchInputController = useDisclosure()
+  const searchInputController = useDisclosure({ defaultIsOpen: false })
 
   const sidebar = useSidebar()
 
@@ -41,8 +41,8 @@ const Header = (props: HeaderProps) => {
                       e.stopPropagation()
                       setSearchValue(e.target.value)
                     },
-                    autoFocus: true,
                     onBlur: searchInputController.onClose,
+                    autoFocus: true,
                   }}
                   onCancel={(e) => {
                     e.stopPropagation()
@@ -54,9 +54,7 @@ const Header = (props: HeaderProps) => {
                 hidden={searchInputController.isOpen && !modalVisible}
                 variant="icon"
                 aria-label="Поиск"
-                onClick={() => {
-                  searchInputController.onToggle()
-                }}
+                onClick={searchInputController.onToggle}
                 size="sm"
               >
                 <Icon as={Icon24Search} />
@@ -86,7 +84,7 @@ const Header = (props: HeaderProps) => {
           bodyProps={{
             width: 'full',
             px: 4,
-            backgroundColor: 'gray.light-brand-50',
+            backgroundColor: 'white.brand-100',
           }}
           Body={(props) => {
             return (

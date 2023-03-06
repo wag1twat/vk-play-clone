@@ -8,7 +8,7 @@ interface HoverItemProps extends ListItemProps {
 
 export const HoverItem = ({ isArrow, children, ...props }: HoverItemProps) => {
   return (
-    <ListItem opacity=".8" py={1} px={4} lineHeight={6} cursor="pointer" {...props}>
+    <ListItem py={1} px={4} lineHeight={6} cursor="pointer" {...props}>
       {children}
       {isArrow && <Icon as={Icon24ChevronCompactRight} float="right" ml={2} />}
     </ListItem>

@@ -14,13 +14,11 @@ const components: Record<string, StyleConfig> = {
   Link: {
     variants: {
       underlining: {
-        color: 'white.brand-500',
+        color: 'white.brand-700',
         fontSize: 'lg',
         alignItems: 'center',
         fontWeight: 600,
         lineHeight: 5,
-        opacity: '.8',
-        transition: 'opacity .1s',
         letterSpacing: 0.5,
         position: 'relative',
         textDecoration: 'none',
@@ -32,31 +30,31 @@ const components: Record<string, StyleConfig> = {
           right: 0,
           bottom: 0,
           height: 1,
-          backgroundColor: '#fff',
+          backgroundColor: 'white.brand',
           borderRadius: 2,
           opacity: 0,
           transition: 'opacity .1s',
           textDecoration: 'none',
         },
         '&[data-active=false]:hover': {
-          opacity: 1,
+          color: 'white.brand',
           textDecoration: 'none',
           _after: {
-            opacity: 1,
+            opacity: 1
           },
         },
         '&[data-dropdown=true]:hover > .dropdown': {
           visibility: 'visible',
         },
         '&:hover': {
-          opacity: 1,
+          color: 'white.brand',
           textDecoration: 'none',
           _after: {
-            opacity: 1,
+            opacity: 1
           },
         },
         '&[data-active=true]': {
-          opacity: 1,
+          color: 'white.brand',
           textDecoration: 'none',
           _after: {
             opacity: 1,
@@ -69,13 +67,12 @@ const components: Record<string, StyleConfig> = {
   Button: {
     variants: {
       icon: {
-        color: 'white.brand-500',
-        opacity: '.8',
-        transition: 'opacity .1s',
+        color: 'white.brand-700',
+        transition: 'color .1s',
         _hover: {
-          opacity: 1,
-          transition: 'opacity .1s',
-          backgroundColor: 'gray.light-brand-50',
+          transition: 'color .1s',
+          color: 'white.brand',
+          backgroundColor: 'white.brand-50',
         },
       },
     },
@@ -84,29 +81,26 @@ const components: Record<string, StyleConfig> = {
     variants: {
       default: {
         field: {
-          backgroundColor: 'gray.light-brand-50',
+          backgroundColor: 'white.brand-50',
           border: '1px solid',
-          borderColor: 'gray.light-brand-50',
-          color: 'white.brand-500',
+          borderColor: 'white.brand-50',
+          color: 'white.brand-900',
           _placeholder: {
             color: 'white.brand-500',
-            opacity: '.6',
           },
           ':hover': {
-            borderColor: 'gray.light-brand-100',
+            borderColor: 'white.brand-100',
           },
           ':focus': {
-            borderColor: 'gray.light-brand-100',
+            borderColor: 'white.brand-100',
             boxShadow: 'none',
           },
         },
         addon: {
           color: 'white.brand-500',
-          opacity: '.6',
         },
         element: {
           color: 'white.brand-500',
-          opacity: '.6',
         },
       },
     },
@@ -199,20 +193,30 @@ const components: Record<string, StyleConfig> = {
     baseStyle: (options) => {
       return {
         width: '100%',
-        background: '#000',
         color: '#fff',
         zIndex: options.theme.zIndices.sticky,
         position: 'sticky',
         height: 'var(--chakra-header-height)',
-      }
-    },
-  },
-  [Components._HeaderBackground]: {
-    baseStyle: (options) => {
-      return {
-        maxWidth: '100%',
-        backgroundColor: 'gray.light-brand-50',
-        height: 'var(--chakra-header-height)',
+        ':before': {
+          content: `''`,
+          background: '#000',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1
+        },
+        ':after': {
+          content: `''`,
+          backgroundColor: 'white.brand-100',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1
+        }
       }
     },
   },
@@ -246,11 +250,6 @@ const HeaderWrapper = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
   }
 )
 
-const HeaderBackground = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
-  const styles = useStyleConfig(Components._HeaderBackground)
-  return React.createElement(chakra.div, { __css: styles, ...props, ref })
-})
-
 const Pin = forwardRef<HTMLChakraProps<'span'> & ThemingProps, 'span'>((props, ref) => {
   const styles = useStyleConfig(Components._Pin)
   return React.createElement(chakra.span, { __css: styles, ...props, ref })
@@ -261,4 +260,4 @@ const ContentLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((
   return React.createElement(chakra.div, { __css: styles, ...props, ref })
 })
 
-export { ScrollLayout, PageBackground, HeaderWrapper, HeaderBackground, Pin, ContentLayout, components }
+export { ScrollLayout, PageBackground, HeaderWrapper, Pin, ContentLayout, components }

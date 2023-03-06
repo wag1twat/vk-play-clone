@@ -1,3 +1,9 @@
 import React from 'react'
+import { UseQueryResult } from 'react-query'
+import { Notification } from '../model'
 
-export const context = React.createContext({})
+interface Context {
+    notifications: UseQueryResult<Notification[]>
+}
+
+export const context = React.createContext<Context>({} as Context)
