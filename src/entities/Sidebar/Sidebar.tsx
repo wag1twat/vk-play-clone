@@ -27,7 +27,7 @@ const Sidebar = () => {
     return null
   }
   return (
-    <Drawer placement="left" onClose={sidebar.onClose} isOpen={sidebar.isOpen}>
+    <Drawer placement="left" onClose={sidebar.onClose} isOpen={sidebar.isOpen} autoFocus={false}>
       <DrawerOverlay top={'var(--chakra-header-height)'} />
       <DrawerContent
         background="linear-gradient(to top, #1e2125 0%, rgba(30, 33, 37, 0) 100%), #000;"
@@ -39,9 +39,9 @@ const Sidebar = () => {
         }}
         borderRadius={10}
       >
-        <DrawerBody>
+        <DrawerBody px={2}>
           <Flex height="100%" flexDirection={'column'}>
-            <ScrollLayout>
+            <ScrollLayout px={2}>
               <AccordinDropdown
                 onItemClick={(item) => {
                   console.log(item)
