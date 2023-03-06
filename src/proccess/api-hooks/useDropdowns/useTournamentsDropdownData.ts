@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { DropdownItem } from 'src/features'
 
-const useTournamentsDropdownData = (): DropdownItem[] => {
+export const useTournamentsDropdownData = (): DropdownItem[] => {
   const navigate = useNavigate()
 
   return [
@@ -25,5 +25,3 @@ const useTournamentsDropdownData = (): DropdownItem[] => {
     },
   ]
 }
-
-export { useTournamentsDropdownData }

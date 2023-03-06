@@ -6,10 +6,10 @@ import {
 } from '@vkontakte/icons'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Dropdown, DropdownItem } from 'src/features'
+import { HoverDropdown, DropdownItem } from 'src/features'
 import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
+import { useDropdowns } from 'src/proccess/api-hooks'
 import { PinnedIconButton } from 'src/shared/PinnedIconButton'
-import { useGamesDropdownData, useMediaDropdownData, useTournamentsDropdownData } from '../model'
 
 interface MenuProps {
   isOpenSearch: boolean
@@ -20,11 +20,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
 
   const location = useLocation()
 
-  const games = useGamesDropdownData()
-
-  const tournaments = useTournamentsDropdownData()
-
-  const media = useMediaDropdownData()
+  const { games, tournaments, media } = useDropdowns()
 
   const mediaVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'], !isOpenSearch)
 
@@ -54,7 +50,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
           data-active={isRoute('games', location)}
         >
           <Text>Игры</Text>
-          <Dropdown dropdowns={games} />
+          <HoverDropdown dropdowns={games} />
         </Link>
       )}
       {anyVisible && (
@@ -73,7 +69,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
           data-active={isRoute('tournaments', location)}
         >
           <Text>Турниры</Text>
-          <Dropdown dropdowns={tournaments} />
+          <HoverDropdown dropdowns={tournaments} />
         </Link>
       )}
       {mediaVisible && (
@@ -83,7 +79,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
           data-active={isRoute('media', location)}
         >
           <Text>Медиа</Text>
-          <Dropdown dropdowns={media} />
+          <HoverDropdown dropdowns={media} />
         </Link>
       )}
       {moreVisible && (
@@ -95,7 +91,7 @@ export const Menu = ({ isOpenSearch, children }: React.PropsWithChildren<MenuPro
           }}
         >
           <Text>Ещё</Text>
-          <Dropdown dropdowns={moreDropdowns} />
+          <HoverDropdown dropdowns={moreDropdowns} />
         </Link>
       )}
       {children}

@@ -1,28 +1,32 @@
 import React from 'react'
-import { Icon20MenuOutline, Icon24Search } from '@vkontakte/icons'
+import { Icon20Cancel, Icon20MenuOutline, Icon24Search } from '@vkontakte/icons'
 import { Flex, HStack, Icon, IconButton, useDisclosure } from '@chakra-ui/react'
 import { Logo, Menu } from './ui'
 import { SearchInput } from 'src/shared/Input'
 import { HeaderLayout } from 'src/shared/Layout'
 import { useCoincidenceBreakpoint } from 'src/proccess'
 import { BasicDialog } from 'src/features'
+import { useSidebar } from '../Sidebar'
 
-const Header = () => {
+interface HeaderProps {}
+
+const Header = (props: HeaderProps) => {
   const searchInputController = useDisclosure()
+
+  const sidebar = useSidebar()
 
   const [searchValue, setSearchValue] = React.useState('')
 
   const modalVisible = useCoincidenceBreakpoint(['sm', 'xs', 'base'])
 
-  const menuButtonVisible = useCoincidenceBreakpoint(['base', 'xs', 'sm'])
   return (
     <HeaderLayout>
       <Flex height="100%" justifyContent={'center'} flexDirection={'column'}>
         <HStack spacing={6}>
           <HStack spacing={[3, 3, 3, 0]}>
-            {menuButtonVisible && (
-              <IconButton variant="icon" aria-label="Меню" size="sm">
-                <Icon as={Icon20MenuOutline} />
+            {sidebar.visibility && (
+              <IconButton variant="icon" aria-label="Меню" size="sm" onClick={sidebar.onToggle}>
+                <Icon as={sidebar.isOpen ? Icon20Cancel : Icon20MenuOutline} />
               </IconButton>
             )}
             <Logo />

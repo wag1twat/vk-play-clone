@@ -3,9 +3,10 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import theme from 'src/theme'
 import { Fonts } from 'src/theme/Fonts'
-import { Header } from 'src/entities/Header'
+import { Header, Sidebar, SidebarProvider } from 'src/entities'
 import { routes } from './proccess'
 import { PageLayout } from './shared/Layout'
+import { DropdownsProvider } from 'src/proccess/api-hooks'
 
 const Games = React.lazy(() => import('src/pages/Games'))
 const Live = React.lazy(() => import('src/pages/Live'))
@@ -18,7 +19,12 @@ function App() {
     <ChakraProvider theme={theme}>
       <Fonts />
       <BrowserRouter>
-        <Header />
+        <DropdownsProvider>
+          <SidebarProvider>
+            <Header />
+            <Sidebar />
+          </SidebarProvider>
+        </DropdownsProvider>
         <PageLayout>
           <Routes>
             <Route

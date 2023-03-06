@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { DropdownItem } from 'src/features'
 
-const useMediaDropdownData = (): DropdownItem[] => {
+export const useMediaDropdownData = (): DropdownItem[] => {
   const navigate = useNavigate()
 
   return [
@@ -38,4 +38,3 @@ const useMediaDropdownData = (): DropdownItem[] => {
   ]
 }
 
-export { useMediaDropdownData }
