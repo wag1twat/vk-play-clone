@@ -5,7 +5,7 @@ import { context } from './context'
 export function Provider(props: React.PropsWithChildren<{}>) {
   const disclosure = useDisclosure({ defaultIsOpen: false })
 
-  const visibility = !useCoincidenceBreakpoint(['base', 'xs', 'sm'])
+  const visibility = useCoincidenceBreakpoint(['base', 'xs', 'sm'])
 
   return <context.Provider value={{ ...disclosure, visibility }} {...props} />
 }
