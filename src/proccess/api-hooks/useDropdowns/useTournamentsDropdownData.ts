@@ -1,30 +1,27 @@
-import React from 'react'
 import { useQuery } from 'react-query'
+import { Guards } from 'shulga-app-core'
 import { Dropdown } from './types'
 
-export const useTournamentsDropdownData = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        id: 0,
-        group: '1',
-        label: 'Все турниры',
-      },
-      {
-        id: 1,
-        group: '1',
-        label: 'Напарники',
-      },
-      {
-        id: 2,
-        group: '1',
-        label: 'Рейтинги',
-      },
-    ],
-    []
-  )
+const data = [
+  {
+    id: 0,
+    group: '1',
+    label: 'Все турниры',
+  },
+  {
+    id: 1,
+    group: '1',
+    label: 'Напарники',
+  },
+  {
+    id: 2,
+    group: '1',
+    label: 'Рейтинги',
+  },
+]
 
-  return useQuery(['tournaments-dropdowns'], {
+export const useTournamentsDropdownData = (userId: number | undefined) => {
+  return useQuery(['tournaments-dropdowns', userId], {
     queryFn: async () => {
       return new Promise<{ data: Dropdown[] }>((resolve) => {
         setTimeout(() => {
@@ -34,5 +31,7 @@ export const useTournamentsDropdownData = () => {
     },
     select: ({ data }) => data,
     keepPreviousData: true,
+    enabled: Guards.isNumber(userId),
+    placeholderData: { data }
   })
 }

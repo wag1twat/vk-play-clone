@@ -1,63 +1,60 @@
-import React from 'react'
 import { useQuery } from 'react-query'
+import { Guards } from 'shulga-app-core'
 import { Dropdown } from './types'
 
-export const useGamesDropdownData = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        id: 0,
-        group: '1',
-        label: 'Бесплатные',
-      },
-      {
-        id: 1,
-        group: '1',
-        label: 'Платные',
-      },
-      {
-        id: 2,
-        group: '2',
-        label: 'Простые',
+const data = [
+  {
+    id: 0,
+    group: '1',
+    label: 'Бесплатные',
+  },
+  {
+    id: 1,
+    group: '1',
+    label: 'Платные',
+  },
+  {
+    id: 2,
+    group: '2',
+    label: 'Простые',
 
-        childrens: [
-          {
-            id: 3,
-            group: '1',
-            label: 'Для гоев',
-          },
-          {
-            id: 4,
-            group: '1',
-            label: 'Для нормисов',
-          },
-          {
-            id: 5,
-            group: '1',
-            label: 'Для шрек энджоеров',
-          },
-        ],
-      },
+    childrens: [
       {
         id: 3,
-        group: '2',
-        label: 'Новинки',
+        group: '1',
+        label: 'Для гоев',
       },
       {
         id: 4,
-        group: '2',
-        label: 'Облачные',
+        group: '1',
+        label: 'Для нормисов',
       },
       {
         id: 5,
-        group: '3',
-        label: 'Торговая площадка',
+        group: '1',
+        label: 'Для шрек энджоеров',
       },
     ],
-    []
-  )
+  },
+  {
+    id: 3,
+    group: '2',
+    label: 'Новинки',
+  },
+  {
+    id: 4,
+    group: '2',
+    label: 'Облачные',
+  },
+  {
+    id: 5,
+    group: '3',
+    label: 'Торговая площадка',
+  },
+]
 
-  return useQuery(['games-dropdowns'], {
+export const useGamesDropdownData = (userId: number | undefined) => {
+  return useQuery(['games-dropdowns', userId], {
     queryFn: async () => {
       return new Promise<{ data: Dropdown[] }>((resolve) => {
         setTimeout(() => {
@@ -67,5 +64,7 @@ export const useGamesDropdownData = () => {
     },
     select: ({ data }) => data,
     keepPreviousData: true,
+    enabled: Guards.isNumber(userId),
+    placeholderData: { data }
   })
 }

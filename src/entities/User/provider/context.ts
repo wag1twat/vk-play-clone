@@ -1,9 +1,10 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
-import { Notification } from '../model'
+import { UserProfile } from 'src/proccess/api-hooks'
 
 interface Context {
-  notifications: UseQueryResult<Notification[]>
+    isAuth: boolean
+    profile: UseQueryResult<UserProfile>
 }
 
 export const context = React.createContext<Context>({} as Context)

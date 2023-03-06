@@ -1,13 +1,20 @@
 import React from 'react'
-import { StyleConfig, chakra, forwardRef, HTMLChakraProps, ThemingProps, useStyleConfig } from '@chakra-ui/react'
+import {
+  StyleConfig,
+  chakra,
+  forwardRef,
+  HTMLChakraProps,
+  ThemingProps,
+  useStyleConfig,
+} from '@chakra-ui/react'
 
 enum Components {
-    '_ScrollLayout' = '_ScrollLayout',
-    '_PageBackground' = '_PageBackground',
-    '_Pin'='_Pin',
-    '_HeaderWrapper' = '_HeaderWrapper',
-    '_HeaderBackground' = '_HeaderBackground',
-    '_ContentLayout' = '_ContentLayout'
+  '_ScrollLayout' = '_ScrollLayout',
+  '_PageBackground' = '_PageBackground',
+  '_Pin' = '_Pin',
+  '_HeaderWrapper' = '_HeaderWrapper',
+  '_HeaderBackground' = '_HeaderBackground',
+  '_ContentLayout' = '_ContentLayout',
 }
 
 const components: Record<string, StyleConfig> = {
@@ -40,7 +47,7 @@ const components: Record<string, StyleConfig> = {
           color: 'white.brand',
           textDecoration: 'none',
           _after: {
-            opacity: 1
+            opacity: 1,
           },
         },
         '&[data-dropdown=true]:hover > .dropdown': {
@@ -50,7 +57,7 @@ const components: Record<string, StyleConfig> = {
           color: 'white.brand',
           textDecoration: 'none',
           _after: {
-            opacity: 1
+            opacity: 1,
           },
         },
         '&[data-active=true]': {
@@ -141,9 +148,9 @@ const components: Record<string, StyleConfig> = {
     },
   },
   [Components._PageBackground]: {
-    baseStyle(){
+    baseStyle() {
       return {
-        position: "relative",
+        position: 'relative',
         minHeight: 'calc(100vh - var(--chakra-header-height))',
         '&:before': {
           content: `""`,
@@ -168,7 +175,7 @@ const components: Record<string, StyleConfig> = {
           height: '100%',
         },
       }
-    }
+    },
   },
   [Components._Pin]: {
     baseStyle: (options) => {
@@ -205,7 +212,7 @@ const components: Record<string, StyleConfig> = {
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: -1
+          zIndex: -1,
         },
         ':after': {
           content: `''`,
@@ -215,8 +222,8 @@ const components: Record<string, StyleConfig> = {
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: -1
-        }
+          zIndex: -1,
+        },
       }
     },
   },
@@ -226,12 +233,11 @@ const components: Record<string, StyleConfig> = {
         width: '100%',
         maxWidth: '7xl',
         margin: 'auto',
-        px: 4
+        px: 4,
       }
     },
   },
 }
-
 
 const ScrollLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
   const styles = useStyleConfig(Components._ScrollLayout)
@@ -243,12 +249,10 @@ const PageBackground = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
   return React.createElement(chakra.div, { __css: styles, ...props, ref })
 })
 
-const HeaderWrapper = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
-  (props, ref) => {
-    const styles = useStyleConfig(Components._HeaderWrapper)
-    return React.createElement(chakra.div, { __css: styles, ...props, ref })
-  }
-)
+const HeaderWrapper = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
+  const styles = useStyleConfig(Components._HeaderWrapper)
+  return React.createElement(chakra.div, { __css: styles, ...props, ref })
+})
 
 const Pin = forwardRef<HTMLChakraProps<'span'> & ThemingProps, 'span'>((props, ref) => {
   const styles = useStyleConfig(Components._Pin)

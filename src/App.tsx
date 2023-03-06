@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import theme from 'src/theme'
 import { Fonts } from 'src/theme/Fonts'
-import { Header, NotifiersProvider, SidebarProvider } from 'src/entities'
+import { Header, NotifiersProvider, SidebarProvider, UserProvider } from 'src/entities'
 import { routes } from './proccess'
 import { PageLayout } from './shared/Layout'
 import { DropdownsProvider } from 'src/proccess/api-hooks'
@@ -20,16 +20,18 @@ function App() {
     <ChakraProvider theme={theme}>
       <Fonts />
       <BrowserRouter>
-        <NotifiersProvider>
-          <DropdownsProvider>
-            <SidebarProvider>
-              <Header />
-              <React.Suspense>
-                <Sidebar />
-              </React.Suspense>
-            </SidebarProvider>
-          </DropdownsProvider>
-        </NotifiersProvider>
+        <UserProvider>
+          <NotifiersProvider>
+            <DropdownsProvider>
+              <SidebarProvider>
+                <Header />
+                <React.Suspense>
+                  <Sidebar />
+                </React.Suspense>
+              </SidebarProvider>
+            </DropdownsProvider>
+          </NotifiersProvider>
+        </UserProvider>
         <PageLayout>
           <Routes>
             <Route

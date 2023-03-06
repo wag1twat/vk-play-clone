@@ -20,10 +20,13 @@ const colors = {
     'brand-500': 'rgba(255, 255, 255, 0.5);',
     'brand-600': 'rgba(255, 255, 255, 0.6);',
     'brand-700': 'rgba(255, 255, 255, 0.7);',
-    'brand-800':'rgba(255, 255, 255, 0.8);',
+    'brand-800': 'rgba(255, 255, 255, 0.8);',
     'brand-900': 'rgba(255, 255, 255, 0.9);',
-    'brand': 'rgba(255, 255, 255, 0.95);'
+    brand: 'rgba(255, 255, 255, 0.95);',
   },
+  blue: {
+    'toast-bg': 'linear-gradient(270deg, #004dc0 0%, #46b2ff 100%);'
+  }
 }
 
 const theme = extendTheme({
