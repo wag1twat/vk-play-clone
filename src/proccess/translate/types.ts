@@ -1,27 +1,26 @@
-import { HeaderTranslate, headerTranslate } from "./Header"
+import { Path, PathValue } from 'shulga-app-core'
+import { HeaderTranslate, headerTranslate } from './Header'
 
 type Lang = 'en' | 'ru'
 
 enum Entities {
-    'Header' = 'Header'
+  'Header' = 'Header',
 }
 
 type Entity = keyof typeof Entities
 
-type T<K> = (key: K, placeholder?: string) => string
 
 const TranslateGuards = {
-    [Entities.Header]: headerTranslate
+  [Entities.Header]: headerTranslate,
 }
 
 type Translate = {
-    [Entities.Header]: HeaderTranslate
+  [Entities.Header]: HeaderTranslate
 }
 
 type UseTranslateResult = {
-    [Entities.Header]: T<keyof HeaderTranslate>
+  [Entities.Header]: <P extends Path<Translate['Header']>>(path: P, placeholder?: string) => PathValue<Translate['Header'], P> | string
 }
-
 
 export { TranslateGuards }
 export type { Translate, UseTranslateResult, Entity, Lang }

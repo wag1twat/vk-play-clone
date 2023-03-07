@@ -9,10 +9,10 @@ import { UserMenu } from './UserMenu'
 
 interface MenuProps {
   isOpenSearch: boolean
-  t: UseTranslateResult['Header']
+  translate: UseTranslateResult['Header']
 }
 
-export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<MenuProps>) => {
+export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChildren<MenuProps>) => {
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -30,20 +30,27 @@ export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<Menu
   const moreDropdowns = React.useMemo(() => {
     return ([] as DropdownItem[]).concat(
       !mediaVisible
-        ? [{ id: 1, group: 'media', label: t('media', 'Медиа'), childrens: media.data }]
+        ? [
+            {
+              id: 1,
+              group: 'media',
+              label: translate('links.media', 'Медиа'),
+              childrens: media.data,
+            },
+          ]
         : [],
       !tournamentsVisible
         ? [
             {
               id: 1,
               group: 'tournaments',
-              label: t('tournaments', 'Турниры'),
+              label: translate('links.tournaments', 'Турниры'),
               childrens: tournaments.data,
             },
           ]
         : []
     )
-  }, [media.data, mediaVisible, t, tournaments.data, tournamentsVisible])
+  }, [media.data, mediaVisible, translate, tournaments.data, tournamentsVisible])
 
   return (
     <HStack flexGrow={1} spacing={6} pt={2} justifyContent="flex-start">
@@ -54,7 +61,7 @@ export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<Menu
           data-active={isRoute('games', location)}
           data-dropdown={true}
         >
-          <Text>{t('games', 'Игры')}</Text>
+          <Text>{translate('links.games', 'Игры')}</Text>
           <HoverDropdown dropdowns={games.data} />
         </Link>
       )}
@@ -74,7 +81,7 @@ export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<Menu
           data-active={isRoute('tournaments', location)}
           data-dropdown={true}
         >
-          <Text>{t('tournaments', 'Турниры')}</Text>
+          <Text>{translate('links.tournaments', 'Турниры')}</Text>
           <HoverDropdown dropdowns={tournaments.data} />
         </Link>
       )}
@@ -85,7 +92,7 @@ export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<Menu
           data-dropdown={true}
           data-active={isRoute('media', location)}
         >
-          <Text>{t('media', 'Медиа')}</Text>
+          <Text>{translate('links.media', 'Медиа')}</Text>
           <HoverDropdown dropdowns={media.data} />
         </Link>
       )}
@@ -98,7 +105,7 @@ export const Menu = ({ t, isOpenSearch, children }: React.PropsWithChildren<Menu
             e.stopPropagation()
           }}
         >
-          <Text>{t('more', 'Ещё')}</Text>
+          <Text>{translate('links.more', 'Ещё')}</Text>
           <HoverDropdown dropdowns={moreDropdowns} />
         </Link>
       )}

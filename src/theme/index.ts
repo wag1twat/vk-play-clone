@@ -25,8 +25,8 @@ const colors = {
     brand: 'rgba(255, 255, 255, 0.95);',
   },
   blue: {
-    'toast-bg': 'linear-gradient(270deg, #004dc0 0%, #46b2ff 100%);'
-  }
+    'toast-bg': 'linear-gradient(270deg, #004dc0 0%, #46b2ff 100%);',
+  },
 }
 
 const theme = extendTheme({

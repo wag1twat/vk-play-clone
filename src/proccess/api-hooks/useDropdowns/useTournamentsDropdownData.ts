@@ -32,6 +32,6 @@ export const useTournamentsDropdownData = (userId: number | undefined) => {
     select: ({ data }) => data,
     keepPreviousData: true,
     enabled: Guards.isNumber(userId),
-    placeholderData: { data }
+    placeholderData: { data },
   })
 }

@@ -11,7 +11,7 @@ import { useSidebar } from '../Sidebar'
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const t = useTranslate('Header', 'en')
+  const translate = useTranslate('Header', 'ru')
 
   const searchInputController = useDisclosure({ defaultIsOpen: false })
 
@@ -33,7 +33,7 @@ const Header = (props: HeaderProps) => {
             )}
             <Logo />
           </HStack>
-          <Menu t={t} isOpenSearch={searchInputController.isOpen}>
+          <Menu translate={translate} isOpenSearch={searchInputController.isOpen}>
             <Flex flexGrow={1} justifyContent="flex-end">
               {searchInputController.isOpen && !modalVisible && (
                 <SearchInput
@@ -55,7 +55,7 @@ const Header = (props: HeaderProps) => {
               <IconButton
                 hidden={searchInputController.isOpen && !modalVisible}
                 variant="icon"
-                aria-label={t('aria-label-search', '')}
+                aria-label={translate('aria-lable.search', 'Поиск')}
                 onClick={searchInputController.onToggle}
                 size="sm"
               >
