@@ -6,17 +6,17 @@ export const headerTranslate = Record({
     tournaments: String,
     media: String,
     more: String,
-    mine: String
+    mine: String,
   }),
   'aria-lable': Record({
     search: String,
   }),
-  "tooltip": Record({
-    "search": String,
-    "sales": String,
-    "notifications": String,
-    "messenger": String
-  })
+  tooltip: Record({
+    search: String,
+    sales: String,
+    notifications: String,
+    messenger: String,
+  }),
 })
 
 export type HeaderTranslate = Static<typeof headerTranslate>
