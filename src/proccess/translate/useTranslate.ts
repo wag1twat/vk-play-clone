@@ -16,7 +16,7 @@ const loadModule = async (entity: Entity, lang: Lang) => {
  * @returns функция перевода
  */
 // TODO: оверкилл ли гард на загружаемый модуль ??? норм для дебага перевести только на proccess.env = dev
-// TODO: че делать с миганием текста на замене placeholder, мб skeleton / react.suspense + useTransition
+// TODO: че делать с миганием текста на замене placeholder при перезагрузке страницы, мб skeleton / react.suspense + useTransition
 export const useTranslate = (entity: Entity, lang: Lang) => {
   const entityRef = React.useRef<Entity>(entity)
   const langRef = React.useRef<Lang>(lang)
