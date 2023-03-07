@@ -15,6 +15,7 @@ const loadModule = async (entity: Entity, lang: Lang) => {
  * @param lang текущий язык
  * @returns функция перевода
  */
+// TODO: оверкилл ли гард на загружаемый модуль ??? норм для дебага перевести только на proccess.env = dev
 export const useTranslate = (entity: Entity, lang: Lang) => {
   const entityRef = React.useRef<Entity>(entity)
   const langRef = React.useRef<Lang>(lang)
