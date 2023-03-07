@@ -2,7 +2,6 @@ import { useQuery } from 'react-query'
 import { Guards } from 'shulga-app-core'
 import { Dropdown } from './types'
 
-
 const data = [
   {
     id: 0,

@@ -1,4 +1,4 @@
-import { Divider, VStack, Icon, Flex, chakra, IconButton, Text } from '@chakra-ui/react'
+import { Divider, VStack, Icon, Flex, chakra, IconButton, Text, Button } from '@chakra-ui/react'
 import {
   Icon24CopyOutline,
   Icon24NotificationOutline,
@@ -6,15 +6,21 @@ import {
   Icon24Settings,
   Icon24UserOutline,
 } from '@vkontakte/icons'
-import React from 'react'
-import { useNotifiers } from 'src/entities/Notifiers'
-import { useUser } from 'src/entities/User'
+import { Guards } from 'shulga-app-core'
+import { useNotifiers, useUser } from 'src/entities'
 import { useToast } from 'src/features'
-import { AccordionItemButton } from 'src/features/Dropdown/ui'
-import { useCopyClickboard } from 'src/proccess'
+import {
+  AccordionButtonLeftIcon,
+  AccordionButtonRightIcon,
+  AccordionButtonText,
+} from 'src/features/Dropdown/ui'
+import { Lang, Languages, languagesOptions, useCopyClickboard, useLang } from 'src/proccess'
+import { BaseSelect } from 'src/shared/Select'
 import { Pin } from 'src/theme/components'
 
 export const Settings = () => {
+  const { lang, changeLang } = useLang()
+
   const { system } = useToast()
 
   const { isAuth, profile } = useUser()
@@ -24,84 +30,88 @@ export const Settings = () => {
   const copyClickboard = useCopyClickboard()
 
   return (
-    <VStack px={2} spacing={2} height="fit-content" fontSize={'lg'} color="white.brand-900">
-      <Divider color="inherit" />
+    <VStack p={2} height="fit-content" alignItems={'flex-start'}>
+      <Divider variant="accordion" />
       {isAuth && (
-        <AccordionItemButton
-          leftIcon={<Icon color="white.brand-700" as={Icon24NotificationOutline} />}
-          rightIcon={
+        <Button size="xs" variant="accordion" data-expander={false} hidden={!profile.data?.id}>
+          <AccordionButtonLeftIcon>
+            <Icon as={Icon24NotificationOutline} />
+          </AccordionButtonLeftIcon>
+          <AccordionButtonText>Уведомления</AccordionButtonText>
+          <AccordionButtonRightIcon display={'flex'}>
             <Pin hidden={!notifications.data?.length} position="static">
               {notifications.data?.length}
             </Pin>
-          }
-          fontSize="inherit"
-          color="inherit"
-          hidden={!profile.data?.id}
-        >
-          Уведомления
-        </AccordionItemButton>
+          </AccordionButtonRightIcon>
+        </Button>
       )}
-      <AccordionItemButton
-        fontSize="inherit"
-        color="inherit"
-        leftIcon={<Icon color="white.brand-700" as={Icon24QuestionOutline} />}
-      >
-        Служба поддержки
-      </AccordionItemButton>
+      <Button size="xs" variant="accordion" data-expander={false}>
+        <AccordionButtonLeftIcon>
+          <Icon as={Icon24QuestionOutline} />
+        </AccordionButtonLeftIcon>
+        <AccordionButtonText>Служба поддержки</AccordionButtonText>
+      </Button>
       {isAuth && (
-        <AccordionItemButton
-          fontSize="inherit"
-          color="inherit"
-          leftIcon={<Icon color="white.brand-700" as={Icon24UserOutline} />}
-          hidden={!profile.data?.id}
-        >
-          Профиль VK Play
-        </AccordionItemButton>
+        <Button size="xs" variant="accordion" data-expander={false} hidden={!profile.data?.id}>
+          <AccordionButtonLeftIcon>
+            <Icon as={Icon24UserOutline} />
+          </AccordionButtonLeftIcon>
+          <AccordionButtonText>Профиль VK Play</AccordionButtonText>
+        </Button>
       )}
       {isAuth && (
         <Flex
           fontSize="inherit"
-          color="white.brand-150"
+          color="white.brand-400"
           fontWeight={400}
           letterSpacing=".6px"
           width="100%"
           pl={8}
+          alignItems="center"
           hidden={!profile.data?.id}
         >
           <chakra.span userSelect={'none'}>ID: {profile.data?.id}</chakra.span>
-          <chakra.span>
-            <IconButton
-              ml={2}
-              size="sm"
-              color="white.brand-200"
-              variant="icon"
-              aria-label="Скопировать ID"
-              onClick={() =>
-                copyClickboard(profile.data?.id, () =>
-                  system(() => (
-                    <Text width="full" textAlign="center">
-                      Скопировано
-                    </Text>
-                  ))
-                )
-              }
-            >
-              <Icon as={Icon24CopyOutline} />
-            </IconButton>
-          </chakra.span>
+          <IconButton
+            ml={2}
+            size="sm"
+            color="inherit"
+            variant="icon"
+            aria-label="Скопировать ID"
+            onClick={() =>
+              copyClickboard(profile.data?.id, () =>
+                system(() => (
+                  <Text width="full" textAlign="center">
+                    Скопировано
+                  </Text>
+                ))
+              )
+            }
+          >
+            <Icon as={Icon24CopyOutline} />
+          </IconButton>
         </Flex>
       )}
       {isAuth && (
-        <AccordionItemButton
-          fontSize={'lg'}
-          color="white.brand-900"
-          leftIcon={<Icon color="white.brand-700" as={Icon24Settings} />}
-          hidden={!profile.data?.id}
-        >
-          Настройки профиля
-        </AccordionItemButton>
+        <Button size="xs" variant="accordion" data-expander={false} hidden={!profile.data?.id}>
+          <AccordionButtonLeftIcon>
+            <Icon as={Icon24Settings} />
+          </AccordionButtonLeftIcon>
+          <AccordionButtonText>Настройки профиля</AccordionButtonText>
+        </Button>
       )}
-      <Divider color="inherit" />
+      <Divider variant="accordion" />
+      <BaseSelect
+        value={lang}
+        onChange={(e) => changeLang(e.target.value as Lang)}
+        getValueLabel={(value) => (Guards.isString(value) ? Languages[value as Lang] : value)}
+        options={languagesOptions}
+        label="Язык"
+      />
+      {isAuth && (
+        <Button size="sm" fontSize={'md'} variant={'link'}>
+          Выйти
+        </Button>
+      )}
     </VStack>
   )
 }

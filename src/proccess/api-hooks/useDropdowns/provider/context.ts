@@ -6,8 +6,8 @@ import { Dropdown } from '../types'
 interface Context {
   media: UseQueryResult<Dropdown[]>
   games: UseQueryResult<Dropdown[]>
-  tournaments: UseQueryResult<Dropdown[]>,
-  translate: TranslateFn<"Dropdowns">
+  tournaments: UseQueryResult<Dropdown[]>
+  translate: TranslateFn<'Dropdowns'>
 }
 
 export const context = React.createContext({} as Context)

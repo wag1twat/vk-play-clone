@@ -29,34 +29,34 @@ export const useTranslate = <E extends keyof Translate>(entity: E): TranslateFn<
     entityRef.current = entity
   }
 
-  const [tObject, setTObject] = React.useState<Translate[E]>(() => loadModule(entityRef.current, langRef.current))
+  const [tObject, setTObject] = React.useState<Translate[E]>(() =>
+    loadModule(entityRef.current, langRef.current)
+  )
 
   React.useEffect(() => {
     try {
       const next = loadModule(entityRef.current, langRef.current)
 
-      const guard = TranslateGuards[entityRef.current]
+      if (process.env.NODE_ENV === 'development') {
+        const guard = TranslateGuards[entityRef.current]
 
-      const result = guard.validate(next)
-
-      if (result.success === false && process.env.NODE_ENV === 'development') {
-        console.log(
-          '>>>',
-          `[${entityRef.current}]`,
-          `[${langRef.current}]`,
-          '<<<',
-          `\n${JSON.stringify(result, null, 2)}`,
-          `\n<<<`
-        )
+        const result = guard.validate(next)
+        if (result.success === false) {
+          console.log(
+            '>>>',
+            `[${entityRef.current}]`,
+            `[${langRef.current}]`,
+            '<<<',
+            `\n${JSON.stringify(result, null, 2)}`,
+            `\n<<<`
+          )
+        }
       }
 
-      setTObject((prev) => !deepEqual(prev, next) ? next : prev)
-    }
-
-    catch(err) {}
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      setTObject((prev) => (!deepEqual(prev, next) ? next : prev))
+    } catch (err) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityRef.current, langRef.current])
-
 
   const t = React.useCallback(
     <P extends Path<Translate[E]>>(path: P, placeholder = ''): PathValue<Translate[E], P> => {

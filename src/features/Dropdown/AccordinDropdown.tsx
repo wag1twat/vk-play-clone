@@ -5,17 +5,17 @@ import {
   AccordionPanel,
   Box,
   Icon,
-  chakra,
   Divider,
   Flex,
   FlexProps,
+  Button,
 } from '@chakra-ui/react'
 import { Icon24ChevronDown, Icon24ChevronUp } from '@vkontakte/icons'
 import React from 'react'
 import { deepEqual } from 'shulga-app-core'
 import { useDropdownConfig } from './model'
 import { DropdownItem } from './types'
-import { AccordionItemButton } from './ui'
+import { AccordionButtonLeftIcon, AccordionButtonRightIcon, AccordionButtonText } from './ui'
 
 interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   dropdowns?: DropdownItem[]
@@ -24,8 +24,6 @@ interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   getItemLabel: (item: DropdownItem) => string
   __deep?: number
 }
-
-const iconSize = 6
 
 export const AccordinDropdown = React.memo(
   ({
@@ -56,55 +54,34 @@ export const AccordinDropdown = React.memo(
         {group.entries.map(([key, items], index) => {
           return (
             <React.Fragment key={key}>
-              <Accordion allowMultiple>
+              <Accordion variant="dropdown" allowMultiple>
                 {items.map((item) => {
                   return (
                     <AccordionItem key={item.id} border="none">
                       {({ isExpanded }) => {
                         if (!item.childrens || item.childrens.length === 0) {
                           return (
-                            <AccordionItemButton
-                              py={1}
-                              isLoading={item.isLoading}
-                              leftIcon={
-                                <chakra.span width={iconSize} height={iconSize}>
-                                  {item.leftIcon}
-                                </chakra.span>
-                              }
+                            <Button
+                              variant="accordion"
+                              data-expander={false}
                               onClick={handleItemClick(item)}
-                              color="white.brand-700"
+                              size="xs"
                             >
-                              {getItemLabel(item)}
-                            </AccordionItemButton>
+                              <AccordionButtonLeftIcon>{item.leftIcon}</AccordionButtonLeftIcon>
+                              <AccordionButtonText>{getItemLabel(item)}</AccordionButtonText>
+                            </Button>
                           )
                         }
                         return (
                           <>
-                            <AccordionButton
-                              as={AccordionItemButton}
-                              py={2}
-                              px={0}
-                              isLoading={item.isLoading}
-                              fontSize={'lg'}
-                              fontWeight="400"
-                              leftIcon={
-                                <chakra.span
-                                  width={iconSize}
-                                  height={iconSize}
-                                  color="white.brand-700"
-                                >
-                                  {item.leftIcon}
-                                </chakra.span>
-                              }
-                              rightIcon={
+                            <AccordionButton data-expander={true} onClick={handleItemClick(item)}>
+                              <AccordionButtonLeftIcon>{item.leftIcon}</AccordionButtonLeftIcon>
+                              <AccordionButtonText>{getItemLabel(item)}</AccordionButtonText>
+                              <AccordionButtonRightIcon>
                                 <Icon as={isExpanded ? Icon24ChevronUp : Icon24ChevronDown} />
-                              }
-                              onClick={handleItemClick(item)}
-                              color="white.brand-900"
-                            >
-                              {getItemLabel(item)}
+                              </AccordionButtonRightIcon>
                             </AccordionButton>
-                            <AccordionPanel p={0} fontSize="md">
+                            <AccordionPanel p={0}>
                               <AccordinDropdown
                                 key={item.id}
                                 onItemClick={onItemClick}
@@ -121,13 +98,12 @@ export const AccordinDropdown = React.memo(
                   )
                 })}
                 <Box
+                  hidden={!(index !== group.entries.length - 1) || __deep === preventBorderDeep}
                   py={2}
                   pr={2}
                   pl={8}
-                  hidden={!(index !== group.entries.length - 1) || __deep === preventBorderDeep}
-                  color="white.brand-700"
                 >
-                  <Divider />
+                  <Divider variant="accordion" />
                 </Box>
               </Accordion>
             </React.Fragment>

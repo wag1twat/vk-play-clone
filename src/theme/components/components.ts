@@ -13,11 +13,113 @@ enum Components {
   '_PageBackground' = '_PageBackground',
   '_Pin' = '_Pin',
   '_HeaderWrapper' = '_HeaderWrapper',
-  '_HeaderBackground' = '_HeaderBackground',
   '_ContentLayout' = '_ContentLayout',
 }
 
 const components: Record<string, StyleConfig> = {
+  Divider: {
+    variants: {
+      accordion: {
+        color: 'white.brand-700',
+        borderStyle: 'solid',
+      },
+    },
+  },
+  Accordion: {
+    variants: {
+      dropdown: {
+        button: {
+          py: 2,
+          px: 0,
+          fontSize: 'lg',
+          color: 'white.brand-900',
+          width: 'full',
+          fontWeight: '400',
+          textAlign: 'left',
+          outline: 'none',
+          lineHeight: 6,
+          '&[data-expander=false]': {
+            py: 1,
+            color: 'white.brand-700',
+          },
+          '& .accordion-button-left-icon': {
+            width: 6,
+            height: 6,
+            color: 'white.brand-700',
+            mr: 2,
+          },
+          '& .accordion-button-right-icon': {
+            color: 'white.brand-700',
+          },
+          '& .accordion-button-text': {
+            flexGrow: 1,
+          },
+          ':hover': {
+            '& .accordion-button-left-icon': {
+              color: 'white.brand',
+            },
+            '& .accordion-button-right-icon': {
+              color: 'white.brand',
+            },
+            '& .accordion-button-text': {
+              color: 'white.brand',
+            },
+          },
+          ':focus': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
+  },
+  List: {
+    variants: {
+      dropdown: {
+        container: {
+          listStyleType: 'none',
+          background: 'rgba(50, 50, 54);',
+          fontSize: 'sm',
+          fontWeight: 'normal',
+          color: 'white.brand-700',
+          position: 'absolute',
+          borderRadius: '4px',
+          py: 2,
+          left: -4,
+          top: `calc(100% - 2px)`,
+          visibility: 'hidden',
+          width: 'max-content',
+          zIndex(theme) {
+            return theme.zIndices.dropdown
+          },
+        },
+        item: {
+          py: 1,
+          px: 4,
+          lineHeight: 6,
+          cursor: 'pointer',
+          position: 'relative',
+          _hover: {
+            background: 'blackAlpha.400',
+            '& > .dropdown': {
+              visibility: 'visible',
+            },
+          },
+          '&[data-divider=true]:hover': {
+            background: 'transparent',
+            cursor: 'default',
+          },
+        },
+        icon: {
+          float: 'right',
+          ml: 2,
+          visibility: 'hidden',
+          '&[data-visibility=true]': {
+            visibility: 'visible',
+          },
+        },
+      },
+    },
+  },
   Link: {
     variants: {
       underlining: {
@@ -81,6 +183,17 @@ const components: Record<string, StyleConfig> = {
           color: 'white.brand',
           backgroundColor: 'white.brand-50',
         },
+      },
+      link: {
+        color: 'white.brand-700',
+        fontWeight: '400',
+        ':hover': {
+          textDecoration: 'none',
+          color: 'white.brand-900'
+        },
+      },
+      accordion({ theme }) {
+        return theme.components.Accordion.variants.dropdown.button
       },
     },
   },

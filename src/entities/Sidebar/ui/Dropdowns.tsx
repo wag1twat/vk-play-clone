@@ -26,7 +26,6 @@ export const Dropdowns = () => {
             key: 'games',
             placeholder: 'Игры',
             leftIcon: <Icon as={Icon24Game} />,
-            isLoading: games.isLoading,
             childrens: games.data,
           },
           {
@@ -37,7 +36,6 @@ export const Dropdowns = () => {
             leftIcon: (
               <Icon as={Icon28EmblemOutline} style={{ width: 'inherit', height: 'inherit' }} />
             ),
-            isLoading: tournaments.isLoading,
             childrens: tournaments.data,
           },
           {
@@ -46,7 +44,6 @@ export const Dropdowns = () => {
             key: 'media',
             placeholder: 'Медиа',
             leftIcon: <Icon as={Icon24BookSpreadOutline} />,
-            isLoading: media.isLoading,
             childrens: media.data,
           },
         ]}
