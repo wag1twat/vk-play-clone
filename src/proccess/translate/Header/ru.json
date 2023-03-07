@@ -1,4 +1,11 @@
 {
-  "games": "Игры",
-  "tournaments": "Турниры"
+  "links": {
+    "games": "Игры",
+    "tournaments": "Турниры",
+    "media": "Медиа",
+    "more": "Ещё"
+  },
+  "aria-lable": {
+    "search": "Поиск"
+  }
 }
