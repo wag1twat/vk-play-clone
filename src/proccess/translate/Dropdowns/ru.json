@@ -1,1 +1,22 @@
-{}
+{
+  "games": "Игры",
+  "games-free": "Бесплатные",
+  "games-paid": "Платные",
+  "games-simple": "Простые",
+  "games-forGoyim": "Для гоев",
+  "games-forNorms": "Для нормисов",
+  "games-forShrek": "Для шрек энджоеров",
+  "games-novelties": "Новинки",
+  "games-cloud": "Облачные",
+  "games-market": "Торговая площадка",
+  "media": "Медиа",
+  "media-all": "Все материалы",
+  "media-news": "Новости игр",
+  "media-esports": "Киберспорт",
+  "media-community": "Сообщество",
+  "media-future": "Игры Будущего",
+  "tournaments": "Турниры",
+  "tournaments-all": "Все турниры",
+  "tournaments-partners": "Напарники",
+  "tournaments-ratings": "Рейтинги"
+}
