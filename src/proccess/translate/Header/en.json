@@ -1,0 +1,11 @@
+{
+  "links": {
+    "games": "Games",
+    "tournaments": "Tournaments",
+    "media": "Media",
+    "more": "More"
+  },
+  "aria-lable": {
+    "search": "Search"
+  }
+}

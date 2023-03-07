@@ -4,13 +4,15 @@ import { Flex, HStack, Icon, IconButton, useDisclosure } from '@chakra-ui/react'
 import { Logo, Menu } from './ui'
 import { SearchInput } from 'src/shared/Input'
 import { HeaderLayout } from 'src/shared/Layout'
-import { useCoincidenceBreakpoint } from 'src/proccess'
+import { useCoincidenceBreakpoint, useTranslate } from 'src/proccess'
 import { BasicDialog } from 'src/features'
 import { useSidebar } from '../Sidebar'
 
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
+  const t = useTranslate('Header', 'en')
+
   const searchInputController = useDisclosure({ defaultIsOpen: false })
 
   const sidebar = useSidebar()
@@ -31,7 +33,7 @@ const Header = (props: HeaderProps) => {
             )}
             <Logo />
           </HStack>
-          <Menu isOpenSearch={searchInputController.isOpen}>
+          <Menu t={t} isOpenSearch={searchInputController.isOpen}>
             <Flex flexGrow={1} justifyContent="flex-end">
               {searchInputController.isOpen && !modalVisible && (
                 <SearchInput
@@ -53,7 +55,7 @@ const Header = (props: HeaderProps) => {
               <IconButton
                 hidden={searchInputController.isOpen && !modalVisible}
                 variant="icon"
-                aria-label="Поиск"
+                aria-label={t('aria-label-search', '')}
                 onClick={searchInputController.onToggle}
                 size="sm"
               >
