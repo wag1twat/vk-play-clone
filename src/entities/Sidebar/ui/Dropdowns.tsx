@@ -18,6 +18,7 @@ export const Dropdowns = () => {
           {
             id: 0,
             group: 'games',
+            key: 'games',
             label: 'Игры',
             leftIcon: <Icon as={Icon24Game} />,
             isLoading: games.isLoading,
@@ -26,6 +27,7 @@ export const Dropdowns = () => {
           {
             id: 1,
             group: 'tournaments',
+            key: 'tournaments',
             label: 'Турниры',
             leftIcon: (
               <Icon as={Icon28EmblemOutline} style={{ width: 'inherit', height: 'inherit' }} />
@@ -36,6 +38,7 @@ export const Dropdowns = () => {
           {
             id: 3,
             group: 'media',
+            key: 'media',
             label: 'Медиа',
             leftIcon: <Icon as={Icon24BookSpreadOutline} />,
             isLoading: media.isLoading,

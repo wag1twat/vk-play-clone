@@ -1,5 +1,5 @@
 import React from 'react'
-import { $Object, Guards, Path, PathValue } from 'shulga-app-core'
+import { $Object, deepEqual, Guards, Path, PathValue } from 'shulga-app-core'
 import { Entity, Lang, Translate, TranslateFn, TranslateGuards } from './types'
 
 const createPath = (entity: Entity, lang: Lang) => `./${entity}/${lang}.json`
@@ -26,29 +26,34 @@ export const useTranslate = <E extends keyof Translate>(entity: E, lang: Lang): 
     entityRef.current = entity
   }
 
-  const tObject = React.useMemo<Translate[E]>(
-    () => loadModule(entityRef.current, langRef.current),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [entityRef.current, langRef.current]
-  )
+  const [tObject, setTObject] = React.useState<Translate[E]>()
 
   React.useEffect(() => {
-    const guard = TranslateGuards[entityRef.current]
+    try {
+      const next = loadModule(entityRef.current, langRef.current)
 
-    const result = guard.validate(tObject)
+      const guard = TranslateGuards[entityRef.current]
 
-    if (result.success === false && process.env.NODE_ENV === 'development') {
-      console.log(
-        '>>>',
-        `[${entityRef.current}]`,
-        `[${langRef.current}]`,
-        '<<<',
-        `\n${JSON.stringify(result, null, 2)}`,
-        `\n<<<`
-      )
+      const result = guard.validate(next)
+
+      if (result.success === false && process.env.NODE_ENV === 'development') {
+        console.log(
+          '>>>',
+          `[${entityRef.current}]`,
+          `[${langRef.current}]`,
+          '<<<',
+          `\n${JSON.stringify(result, null, 2)}`,
+          `\n<<<`
+        )
+      }
+
+      setTObject((prev) => !deepEqual(prev, next) ? next : prev)
     }
+
+    catch(err) {}
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entityRef.current, langRef.current, tObject])
+  }, [entityRef.current, langRef.current])
+
 
   const t = React.useCallback(
     <P extends Path<Translate[E]>>(path: P, placeholder = ''): PathValue<Translate[E], P> => {

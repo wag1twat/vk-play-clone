@@ -34,6 +34,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
             {
               id: 1,
               group: 'media',
+              key: 'media',
               label: translate('links.media', 'Медиа'),
               childrens: media.data,
             },
@@ -44,6 +45,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
             {
               id: 1,
               group: 'tournaments',
+              key: 'tournaments',
               label: translate('links.tournaments', 'Турниры'),
               childrens: tournaments.data,
             },
