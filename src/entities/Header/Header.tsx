@@ -11,7 +11,7 @@ import { useSidebar } from '../Sidebar'
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const translate = useTranslate('Header', 'ru')
+  const translate = useTranslate('Header', 'en')
 
   const searchInputController = useDisclosure({ defaultIsOpen: false })
 

@@ -9,6 +9,12 @@ const loadModule = async (entity: Entity, lang: Lang) => {
   return await import(`${path}`)
 }
 
+/**
+ * разбиваем джсоны переводов на чанки чтоб уменьшить размер загружаемого бандла
+ * @param entity глобальные сущности в приложении
+ * @param lang текущий язык
+ * @returns функция перевода
+ */
 export const useTranslate = (entity: Entity, lang: Lang) => {
   const entityRef = React.useRef<Entity>(entity)
   const langRef = React.useRef<Lang>(lang)
