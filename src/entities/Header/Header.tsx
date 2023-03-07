@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon20Cancel, Icon20MenuOutline, Icon24Search } from '@vkontakte/icons'
-import { Flex, HStack, Icon, IconButton, useDisclosure } from '@chakra-ui/react'
+import { Flex, HStack, Icon, IconButton, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { Logo, Menu } from './ui'
 import { SearchInput } from 'src/shared/Input'
 import { HeaderLayout } from 'src/shared/Layout'
@@ -52,15 +52,17 @@ const Header = (props: HeaderProps) => {
                   }}
                 />
               )}
-              <IconButton
-                hidden={searchInputController.isOpen && !modalVisible}
-                variant="icon"
-                aria-label={translate('aria-lable.search', 'Поиск')}
-                onClick={searchInputController.onToggle}
-                size="sm"
-              >
-                <Icon as={Icon24Search} />
-              </IconButton>
+              <Tooltip label={translate('tooltip.search', 'Поиск')} hasArrow>
+                <IconButton
+                  hidden={searchInputController.isOpen && !modalVisible}
+                  variant="icon"
+                  aria-label={translate('aria-lable.search', 'Поиск')}
+                  onClick={searchInputController.onToggle}
+                  size="sm"
+                >
+                  <Icon as={Icon24Search} />
+                </IconButton>
+              </Tooltip>
             </Flex>
           </Menu>
         </HStack>

@@ -110,7 +110,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
         </Link>
       )}
       {children}
-      <UserMenu />
+      <UserMenu translate={translate} />
     </HStack>
   )
 }
