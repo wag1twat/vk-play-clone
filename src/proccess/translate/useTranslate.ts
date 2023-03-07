@@ -17,7 +17,7 @@ const loadModule = (entity: Entity, lang: Lang) => require(`${createPath(entity,
 
 export const useTranslate = <E extends keyof Translate>(entity: E): TranslateFn<E> => {
   const { lang } = useLang()
-  
+
   const entityRef = React.useRef<E>(entity)
   const langRef = React.useRef<Lang>(lang)
 
@@ -29,7 +29,7 @@ export const useTranslate = <E extends keyof Translate>(entity: E): TranslateFn<
     entityRef.current = entity
   }
 
-  const [tObject, setTObject] = React.useState<Translate[E]>()
+  const [tObject, setTObject] = React.useState<Translate[E]>(() => loadModule(entityRef.current, langRef.current))
 
   React.useEffect(() => {
     try {

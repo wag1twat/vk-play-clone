@@ -6,32 +6,32 @@ const data = [
   {
     id: 0,
     group: '1',
-    key: 'all',
-    label: 'Все материалы',
+    key: 'media-all',
+    placeholder: 'Все материалы',
   },
   {
     id: 1,
     group: '1',
-    key: 'news',
-    label: 'Новости игр',
+    key: 'media-news',
+    placeholder: 'Новости игр',
   },
   {
     id: 2,
     group: '1',
-    key: 'esports',
-    label: 'Киберспорт',
+    key: 'media-esports',
+    placeholder: 'Киберспорт',
   },
   {
     id: 3,
     group: '2',
-    key: 'community',
-    label: 'Сообщество',
+    key: 'media-community',
+    placeholder: 'Сообщество',
   },
   {
     id: 4,
     group: '2',
-    key: 'future',
-    label: 'Игры Будущего',
+    key: 'media-future',
+    placeholder: 'Игры Будущего',
   },
 ]
 

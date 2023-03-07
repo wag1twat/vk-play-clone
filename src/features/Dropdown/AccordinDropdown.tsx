@@ -21,6 +21,7 @@ interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   dropdowns?: DropdownItem[]
   preventBorderDeep?: number
   onItemClick?: (item: DropdownItem) => void
+  getItemLabel: (item: DropdownItem) => string
   __deep?: number
 }
 
@@ -30,6 +31,7 @@ export const AccordinDropdown = React.memo(
   ({
     dropdowns = [],
     onItemClick,
+    getItemLabel,
     preventBorderDeep = 1,
     __deep = 1,
     ...props
@@ -72,7 +74,7 @@ export const AccordinDropdown = React.memo(
                               onClick={handleItemClick(item)}
                               color="white.brand-700"
                             >
-                              {item.label}
+                              {getItemLabel(item)}
                             </AccordionItemButton>
                           )
                         }
@@ -100,12 +102,13 @@ export const AccordinDropdown = React.memo(
                               onClick={handleItemClick(item)}
                               color="white.brand-900"
                             >
-                              {item.label}
+                              {getItemLabel(item)}
                             </AccordionButton>
                             <AccordionPanel p={0} fontSize="md">
                               <AccordinDropdown
                                 key={item.id}
                                 onItemClick={onItemClick}
+                                getItemLabel={getItemLabel}
                                 dropdowns={item.childrens}
                                 preventBorderDeep={preventBorderDeep}
                                 __deep={__deep + 1}

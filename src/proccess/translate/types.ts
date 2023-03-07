@@ -24,7 +24,7 @@ type Translate = {
 type TranslateFn<Key extends keyof Translate> = <P extends Path<Translate[Key]>>(
   path: P,
   placeholder?: string
-) => PathValue<Translate[Key], P> | string
+) => PathValue<Translate[Key], P>
 
 export { TranslateGuards }
 export type { Translate, TranslateFn, Entity, Lang }

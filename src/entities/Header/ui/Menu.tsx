@@ -1,10 +1,11 @@
 import { Link, HStack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Path } from 'shulga-app-core'
 import { HoverDropdown, DropdownItem } from 'src/features'
 import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
 import { useDropdowns } from 'src/proccess/api-hooks'
-import { TranslateFn } from 'src/proccess/translate'
+import { Translate, TranslateFn } from 'src/proccess/translate'
 import { UserMenu } from './UserMenu'
 
 interface MenuProps {
@@ -17,7 +18,13 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
 
   const location = useLocation()
 
-  const { games, tournaments, media } = useDropdowns()
+  const { games, tournaments, media, translate: translateDropdown } = useDropdowns()
+
+  const getItemLabel = React.useCallback(
+    (item: DropdownItem) =>
+      translateDropdown(item.key as Path<Translate['Dropdowns']>, item.placeholder),
+    [translateDropdown]
+  )
 
   const mediaVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'], !isOpenSearch)
 
@@ -35,7 +42,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
               id: 1,
               group: 'media',
               key: 'media',
-              label: translate('links.media', 'Медиа'),
+              placeholder: 'Медиа',
               childrens: media.data,
             },
           ]
@@ -46,13 +53,13 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
               id: 1,
               group: 'tournaments',
               key: 'tournaments',
-              label: translate('links.tournaments', 'Турниры'),
+              placeholder: 'Турниры',
               childrens: tournaments.data,
             },
           ]
         : []
     )
-  }, [media.data, mediaVisible, translate, tournaments.data, tournamentsVisible])
+  }, [media.data, mediaVisible, tournaments.data, tournamentsVisible])
 
   return (
     <HStack flexGrow={1} spacing={6} pt={2} justifyContent="flex-start">
@@ -64,7 +71,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
           data-dropdown={true}
         >
           <Text>{translate('links.games', 'Игры')}</Text>
-          <HoverDropdown dropdowns={games.data} />
+          <HoverDropdown getItemLabel={getItemLabel} dropdowns={games.data} />
         </Link>
       )}
       {anyVisible && (
@@ -84,7 +91,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
           data-dropdown={true}
         >
           <Text>{translate('links.tournaments', 'Турниры')}</Text>
-          <HoverDropdown dropdowns={tournaments.data} />
+          <HoverDropdown getItemLabel={getItemLabel} dropdowns={tournaments.data} />
         </Link>
       )}
       {mediaVisible && (
@@ -95,7 +102,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
           data-active={isRoute('media', location)}
         >
           <Text>{translate('links.media', 'Медиа')}</Text>
-          <HoverDropdown dropdowns={media.data} />
+          <HoverDropdown getItemLabel={getItemLabel} dropdowns={media.data} />
         </Link>
       )}
       {moreVisible && (
@@ -108,7 +115,7 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
           }}
         >
           <Text>{translate('links.more', 'Ещё')}</Text>
-          <HoverDropdown dropdowns={moreDropdowns} />
+          <HoverDropdown getItemLabel={getItemLabel} dropdowns={moreDropdowns} />
         </Link>
       )}
       {children}

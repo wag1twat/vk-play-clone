@@ -1,25 +1,22 @@
 {
-  "games": {
-    "free": "Free-to-play",
-    "paid": "Pay-to-play",
-    "simple": "Simple",
-    "forGoyim": "For goyim",
-    "forNorms": "For norms",
-    "forShrek": "For shrek lovers",
-    "novelties": "Novelties",
-    "cloud": "Cloudy",
-    "market": "Marketplace"
-  },
-  "media": {
-    "all": "All materials",
-    "news": "Game News",
-    "esports": "Esports",
-    "community": "Community",
-    "future": "Games of the Future"
-  },
-  "tournaments": {
-    "all": "All tournaments",
-    "partners": "Partners",
-    "rating": "Ratings"
-  }
+  "games": "Games",
+  "games-free": "Free-to-play",
+  "games-paid": "Pay-to-play",
+  "games-simple": "Simple",
+  "games-forGoyim": "For goyim",
+  "games-forNorms": "For norms",
+  "games-forShrek": "For shrek lovers",
+  "games-novelties": "Novelties",
+  "games-cloud": "Cloudy",
+  "games-market": "Marketplace",
+  "media": "Media",
+  "media-all": "All materials",
+  "media-news": "Game News",
+  "media-esports": "Esports",
+  "media-community": "Community",
+  "media-future": "Games of the Future",
+  "tournaments": "Tournaments",
+  "tournaments-all": "All tournaments",
+  "tournaments-partners": "Partners",
+  "tournaments-ratings": "Ratings"
 }

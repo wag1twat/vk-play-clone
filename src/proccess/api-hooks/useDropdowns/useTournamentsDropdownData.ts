@@ -6,20 +6,20 @@ const data = [
   {
     id: 0,
     group: '1',
-    key: 'all',
-    label: 'Все турниры',
+    key: 'tournaments-all',
+    placeholder: 'Все турниры',
   },
   {
     id: 1,
     group: '1',
-    key: 'partners',
-    label: 'Напарники',
+    key: 'tournaments-partners',
+    placeholder: 'Напарники',
   },
   {
     id: 2,
     group: '1',
-    key: 'ratings',
-    label: 'Рейтинги',
+    key: 'tournaments-ratings',
+    placeholder: 'Рейтинги',
   },
 ]
 

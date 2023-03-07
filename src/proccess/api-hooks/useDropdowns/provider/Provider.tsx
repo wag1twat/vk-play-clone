@@ -20,6 +20,7 @@ export const Provider = (props: React.PropsWithChildren<{}>) => {
         games,
         tournaments,
         media,
+        translate,
       }}
       {...props}
     />

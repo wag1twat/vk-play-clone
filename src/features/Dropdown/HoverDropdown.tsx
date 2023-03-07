@@ -6,9 +6,10 @@ import { HoverCard, HoverItem } from './ui'
 
 interface DropdownProps extends ListProps {
   dropdowns?: DropdownItem[]
+  getItemLabel: (item: DropdownItem) => string
 }
 
-export const HoverDropdown = ({ dropdowns, ...props }: DropdownProps) => {
+export const HoverDropdown = ({ getItemLabel, dropdowns, ...props }: DropdownProps) => {
   const theme = useTheme()
 
   const { isRender, group } = useDropdownConfig(dropdowns)
@@ -47,9 +48,14 @@ export const HoverDropdown = ({ dropdowns, ...props }: DropdownProps) => {
                   }}
                   isArrow={isRenderChildrens}
                 >
-                  {item.label}
+                  {getItemLabel(item)}
                   {isRenderChildrens && (
-                    <HoverDropdown dropdowns={item.childrens} top={-2} left="100%" />
+                    <HoverDropdown
+                      getItemLabel={getItemLabel}
+                      dropdowns={item.childrens}
+                      top={-2}
+                      left="100%"
+                    />
                   )}
                 </HoverItem>
               )

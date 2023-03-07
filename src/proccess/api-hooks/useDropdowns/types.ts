@@ -2,7 +2,7 @@ interface Dropdown {
   id: number
   group: string
   key: string
-  label: string
+  placeholder: string
 }
 
 export type { Dropdown }
