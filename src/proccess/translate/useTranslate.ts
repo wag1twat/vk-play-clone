@@ -1,6 +1,6 @@
 import React from 'react'
-import { $Object, Guards } from 'shulga-app-core'
-import { Entity, Lang, Translate, TranslateGuards, UseTranslateResult } from './types'
+import { $Object, Guards, Path, PathValue } from 'shulga-app-core'
+import { Entity, Lang, Translate, TranslateFn, TranslateGuards } from './types'
 
 const createPath = (entity: Entity, lang: Lang) => `./${entity}/${lang}.json`
 
@@ -18,8 +18,9 @@ const loadModule = async (entity: Entity, lang: Lang) => {
 // TODO: оверкилл ли гард на загружаемый модуль ??? норм для дебага перевести только на proccess.env = dev
 // TODO: че делать с миганием текста на замене placeholder при перезагрузке страницы, мб skeleton / react.suspense
 // TODO: возвращать ли isModuleLoading ???
-export const useTranslate = (entity: Entity, lang: Lang) => {
-  const entityRef = React.useRef<Entity>(entity)
+
+export const useTranslate = <E extends keyof Translate>(entity: E, lang: Lang): TranslateFn<E> => {
+  const entityRef = React.useRef<E>(entity)
   const langRef = React.useRef<Lang>(lang)
 
   if (langRef.current !== lang) {
@@ -30,7 +31,7 @@ export const useTranslate = (entity: Entity, lang: Lang) => {
     entityRef.current = entity
   }
 
-  const [tObject, setTObject] = React.useState<Translate[Entity]>()
+  const [tObject, setTObject] = React.useState<Translate[E]>()
 
   React.useEffect(() => {
     const guard = TranslateGuards[entityRef.current]
@@ -61,10 +62,11 @@ export const useTranslate = (entity: Entity, lang: Lang) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [langRef.current, entityRef.current])
 
-  const t = React.useCallback<UseTranslateResult[Entity]>(
-    (path, placeholder = '') => {
+
+  const t = React.useCallback(
+    <P extends Path<Translate[E]>>(path: P, placeholder = ''): PathValue<Translate[E], P> => {
        if(Guards.isObject(tObject)) {
-         return $Object(tObject).get(path) || placeholder
+         return $Object(tObject).get(path) || (placeholder as any)
        }
        return placeholder as any
     },

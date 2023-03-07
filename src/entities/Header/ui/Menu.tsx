@@ -4,12 +4,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { HoverDropdown, DropdownItem } from 'src/features'
 import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
 import { useDropdowns } from 'src/proccess/api-hooks'
-import { UseTranslateResult } from 'src/proccess/translate'
+import { TranslateFn } from 'src/proccess/translate'
 import { UserMenu } from './UserMenu'
 
 interface MenuProps {
   isOpenSearch: boolean
-  translate: UseTranslateResult['Header']
+  translate: TranslateFn<'Header'>
 }
 
 export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChildren<MenuProps>) => {

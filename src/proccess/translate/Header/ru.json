@@ -14,30 +14,5 @@
     "sales": "Акции",
     "notifications": "Уведомления",
     "messenger": "Мессенджер"
-  },
-  "dropdowns": {
-    "games": {
-      "free": "Бесплатные",
-      "paid": "Платные",
-      "simple": "Простые",
-      "forGoyim": "Для гоев",
-      "forNorms": "Для нормисов",
-      "forShrek": "Для шрек энджоеров",
-      "novelties": "Новинки",
-      "cloud": "Облачные",
-      "market": "Торговая площадка"
-    },
-    "media": {
-      "all": "Все материалы",
-      "news": "Новости",
-      "esports": "Киберспрот",
-      "community": "Сообщество",
-      "future": "Игры Будущего"
-    },
-    "tournaments": {
-      "all": "Все турниры",
-      "partners": "Напарники",
-      "rating": "Рейтинги"
-    }
   }
 }

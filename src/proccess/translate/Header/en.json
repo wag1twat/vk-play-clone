@@ -14,30 +14,5 @@
     "sales": "Special offers",
     "notifications": "Notifications",
     "messenger": "Messenger"
-  },
-  "dropdowns": {
-    "games": {
-      "free": "Free-to-play",
-      "paid": "Pay-to-play",
-      "simple": "Simple",
-      "forGoyim": "For goyim",
-      "forNorms": "For norms",
-      "forShrek": "For shrek lovers",
-      "novelties": "Novelties",
-      "cloud": "Cloudy",
-      "market": "Marketplace"
-    },
-    "media": {
-      "all": "All materials",
-      "news": "Game News",
-      "esports": "Esports",
-      "community": "Community",
-      "future": "Games of the Future"
-    },
-    "tournaments": {
-      "all": "All tournaments",
-      "partners": "Partners",
-      "rating": "Ratings"
-    }
   }
 }

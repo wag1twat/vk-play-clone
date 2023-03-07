@@ -6,11 +6,11 @@ import {
   Icon24NotificationOutline,
 } from '@vkontakte/icons'
 import { useNotifiers } from 'src/entities'
-import { useCoincidenceBreakpoint, UseTranslateResult } from 'src/proccess'
+import { useCoincidenceBreakpoint, TranslateFn } from 'src/proccess'
 import { PinnedIconButton } from 'src/shared/PinnedIconButton'
 
 interface UserMenuProps {
-  translate: UseTranslateResult['Header']
+  translate: TranslateFn<'Header'>
 }
 
 export const UserMenu = ({ translate }: UserMenuProps) => {
