@@ -3,9 +3,16 @@
     "games": "Игры",
     "tournaments": "Турниры",
     "media": "Медиа",
-    "more": "Ещё"
+    "more": "Ещё",
+    "mine": "Моё"
   },
   "aria-lable": {
     "search": "Поиск"
+  },
+  "tooltip": {
+    "search": "Поиск",
+    "sales": "Акции",
+    "notifications": "Уведомления",
+    "messenger": "Мессенджер"
   }
 }
