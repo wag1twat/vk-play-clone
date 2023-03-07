@@ -17,8 +17,8 @@
   },
   "dropdowns": {
     "games": {
-      "free": "Free",
-      "paid": "Paid",
+      "free": "Free-to-play",
+      "paid": "Pay-to-play",
       "simple": "Simple",
       "forGoyim": "For goyim",
       "forNorms": "For norms",
