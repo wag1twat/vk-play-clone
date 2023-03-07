@@ -1,4 +1,8 @@
 {
-  "games": "Игры",
-  "tournaments": "Турниры"
+  "links": {
+    "tournaments": "Турниры"
+  },
+  "aria-lable": {
+    "search": "Поиск"
+  }
 }
