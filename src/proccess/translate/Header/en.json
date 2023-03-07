@@ -3,9 +3,16 @@
     "games": "Games",
     "tournaments": "Tournaments",
     "media": "Media",
-    "more": "More"
+    "more": "More",
+    "mine": "Mine"
   },
   "aria-lable": {
     "search": "Search"
+  },
+  "tooltip": {
+    "search": "Search",
+    "sales": "Special offers",
+    "notifications": "Notifications",
+    "messenger": "Messenger"
   }
 }
