@@ -8,7 +8,7 @@ import { context } from './context'
 export const Provider = (props: React.PropsWithChildren<{}>) => {
   const { profile } = useUser()
 
-  const translate = useTranslate('Dropdowns', 'en')
+  const translate = useTranslate('Dropdowns')
 
   const games = useGamesDropdownData(profile.data?.id)
   const media = useMediaDropdownData(profile.data?.id)

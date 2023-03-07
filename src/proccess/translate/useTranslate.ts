@@ -1,5 +1,6 @@
 import React from 'react'
 import { $Object, deepEqual, Guards, Path, PathValue } from 'shulga-app-core'
+import { useLang } from './provider'
 import { Entity, Lang, Translate, TranslateFn, TranslateGuards } from './types'
 
 const createPath = (entity: Entity, lang: Lang) => `./${entity}/${lang}.json`
@@ -14,7 +15,9 @@ const loadModule = (entity: Entity, lang: Lang) => require(`${createPath(entity,
  */
 // TODO: оверкилл ли гард на загружаемый модуль ??? норм для дебага перевести только на proccess.env = dev
 
-export const useTranslate = <E extends keyof Translate>(entity: E, lang: Lang): TranslateFn<E> => {
+export const useTranslate = <E extends keyof Translate>(entity: E): TranslateFn<E> => {
+  const { lang } = useLang()
+  
   const entityRef = React.useRef<E>(entity)
   const langRef = React.useRef<Lang>(lang)
 

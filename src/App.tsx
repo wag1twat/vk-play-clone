@@ -1,8 +1,5 @@
 import React from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import theme from 'src/theme'
-import { Fonts } from 'src/theme/Fonts'
 import { Header, NotifiersProvider, SidebarProvider, UserProvider } from 'src/entities'
 import { routes } from './proccess'
 import { PageLayout } from './shared/Layout'
@@ -17,67 +14,64 @@ const Index = React.lazy(() => import('src/pages/Index'))
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Fonts />
-      <BrowserRouter>
-        <UserProvider>
-          <NotifiersProvider>
-            <DropdownsProvider>
-              <SidebarProvider>
-                <Header />
-                <React.Suspense>
-                  <Sidebar />
-                </React.Suspense>
-              </SidebarProvider>
-            </DropdownsProvider>
-          </NotifiersProvider>
-        </UserProvider>
-        <PageLayout>
-          <Routes>
-            <Route
-              path={routes.games.path}
-              element={
-                <React.Suspense>
-                  <Games />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path={routes.live.path}
-              element={
-                <React.Suspense>
-                  <Live />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path={routes.tournaments.path}
-              element={
-                <React.Suspense>
-                  <Tournaments />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path={routes.media.path}
-              element={
-                <React.Suspense>
-                  <Media />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <React.Suspense>
-                  <Index />
-                </React.Suspense>
-              }
-            />
-          </Routes>
-        </PageLayout>
-      </BrowserRouter>
-    </ChakraProvider>
+    <BrowserRouter>
+      <UserProvider>
+        <NotifiersProvider>
+          <DropdownsProvider>
+            <SidebarProvider>
+              <Header />
+              <React.Suspense>
+                <Sidebar />
+              </React.Suspense>
+            </SidebarProvider>
+          </DropdownsProvider>
+        </NotifiersProvider>
+      </UserProvider>
+      <PageLayout>
+        <Routes>
+          <Route
+            path={routes.games.path}
+            element={
+              <React.Suspense>
+                <Games />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path={routes.live.path}
+            element={
+              <React.Suspense>
+                <Live />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path={routes.tournaments.path}
+            element={
+              <React.Suspense>
+                <Tournaments />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path={routes.media.path}
+            element={
+              <React.Suspense>
+                <Media />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <React.Suspense>
+                <Index />
+              </React.Suspense>
+            }
+          />
+        </Routes>
+      </PageLayout>
+    </BrowserRouter>
   )
 }
 

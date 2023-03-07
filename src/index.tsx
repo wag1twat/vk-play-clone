@@ -4,6 +4,10 @@ import './vars.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { LangProvider } from 'src/proccess'
+import { ChakraProvider } from '@chakra-ui/react'
+import theme from 'src/theme'
+import { Fonts } from 'src/theme/Fonts'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -11,9 +15,14 @@ const queryClient = new QueryClient()
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <LangProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Fonts />
+          <App />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </LangProvider>
   </React.StrictMode>
 )
 
