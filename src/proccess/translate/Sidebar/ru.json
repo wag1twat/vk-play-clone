@@ -5,6 +5,10 @@
     "settings": "Настройки профиля",
     "support": "Служба поддержки",
     "lang": "Язык",
-    "exit": "Выход"
+    "exit": "Выход",
+    "clickboard-id": {
+      "aria-label": "Скопировать ID",
+      "toast-message": "Скопировано"
+    }
   }
 }
