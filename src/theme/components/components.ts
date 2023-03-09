@@ -135,54 +135,6 @@ const components: Record<string, StyleConfig> = {
       },
     },
   },
-  List: {
-    variants: {
-      dropdown: {
-        container: {
-          listStyleType: 'none',
-          background: 'rgba(50, 50, 54);',
-          fontSize: 'sm',
-          fontWeight: 'normal',
-          color: 'white.brand-700',
-          position: 'absolute',
-          borderRadius: '4px',
-          py: 2,
-          left: -4,
-          top: `calc(100% - 2px)`,
-          visibility: 'hidden',
-          width: 'max-content',
-          zIndex(theme) {
-            return theme.zIndices.dropdown
-          },
-        },
-        item: {
-          py: 1,
-          px: 4,
-          lineHeight: 6,
-          cursor: 'pointer',
-          position: 'relative',
-          _hover: {
-            background: 'blackAlpha.400',
-            '& > .dropdown': {
-              visibility: 'visible',
-            },
-          },
-          '&[data-divider=true]:hover': {
-            background: 'transparent',
-            cursor: 'default',
-          },
-        },
-        icon: {
-          float: 'right',
-          ml: 2,
-          visibility: 'hidden',
-          '&[data-visibility=true]': {
-            visibility: 'visible',
-          },
-        },
-      },
-    },
-  },
   Link: {
     variants: {
       underlining: {
