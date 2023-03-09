@@ -2,10 +2,12 @@ import { Path, PathValue } from 'shulga-app-core'
 import { SelectOption } from 'src/shared/Select'
 import { DropdownsTranslate, dropdownsTranslate } from './Dropdowns'
 import { HeaderTranslate, headerTranslate } from './Header'
+import { SidebarTranslate, sidebarTranslate } from './Sidebar'
 
 const Entities = {
   Header: 'Header',
   Dropdowns: 'Dropdowns',
+  Sidebar: 'Sidebar',
 } as const
 
 const Languages = {
@@ -25,11 +27,13 @@ type Entity = keyof typeof Entities
 const TranslateGuards = {
   [Entities.Header]: headerTranslate,
   [Entities.Dropdowns]: dropdownsTranslate,
+  [Entities.Sidebar]: sidebarTranslate,
 }
 
 type Translate = {
   [Entities.Header]: HeaderTranslate
   [Entities.Dropdowns]: DropdownsTranslate
+  [Entities.Sidebar]: SidebarTranslate
 }
 
 type TranslateFn<Key extends keyof Translate> = <P extends Path<Translate[Key]>>(

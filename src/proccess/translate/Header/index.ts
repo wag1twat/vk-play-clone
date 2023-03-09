@@ -17,6 +17,14 @@ export const headerTranslate = Record({
     notifications: String,
     messenger: String,
   }),
+  profile: Record({
+    notifications: String,
+    vkplay: String,
+    settings: String,
+    support: String,
+    lang: String,
+    exit: String,
+  }),
 })
 
 export type HeaderTranslate = Static<typeof headerTranslate>

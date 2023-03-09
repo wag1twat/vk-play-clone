@@ -14,11 +14,22 @@ import {
   AccordionButtonRightIcon,
   AccordionButtonText,
 } from 'src/features/Dropdown/ui'
-import { Lang, Languages, languagesOptions, useCopyClickboard, useLang } from 'src/proccess'
+import {
+  Lang,
+  Languages,
+  languagesOptions,
+  TranslateFn,
+  useCopyClickboard,
+  useLang,
+} from 'src/proccess'
 import { BaseSelect } from 'src/shared/Select'
 import { Pin } from 'src/theme/components'
 
-export const Settings = () => {
+interface SettingsProps {
+  translate: TranslateFn<'Sidebar'>
+}
+
+export const Settings = ({ translate }: SettingsProps) => {
   const { lang, changeLang } = useLang()
 
   const { system } = useToast()
@@ -37,7 +48,9 @@ export const Settings = () => {
           <AccordionButtonLeftIcon>
             <Icon as={Icon24NotificationOutline} />
           </AccordionButtonLeftIcon>
-          <AccordionButtonText>Уведомления</AccordionButtonText>
+          <AccordionButtonText>
+            {translate('profile.notifications', 'Уведомления')}
+          </AccordionButtonText>
           <AccordionButtonRightIcon display={'flex'}>
             <Pin hidden={!notifications.data?.length} position="static">
               {notifications.data?.length}
@@ -49,14 +62,18 @@ export const Settings = () => {
         <AccordionButtonLeftIcon>
           <Icon as={Icon24QuestionOutline} />
         </AccordionButtonLeftIcon>
-        <AccordionButtonText>Служба поддержки</AccordionButtonText>
+        <AccordionButtonText>
+          {translate('profile.support', 'Служба поддержки')}
+        </AccordionButtonText>
       </Button>
       {isAuth && (
         <Button size="xs" variant="accordion" data-expander={false} hidden={!profile.data?.id}>
           <AccordionButtonLeftIcon>
             <Icon as={Icon24UserOutline} />
           </AccordionButtonLeftIcon>
-          <AccordionButtonText>Профиль VK Play</AccordionButtonText>
+          <AccordionButtonText>
+            {translate('profile.vkplay', 'Профиль VK Play')}
+          </AccordionButtonText>
         </Button>
       )}
       {isAuth && (
@@ -96,7 +113,9 @@ export const Settings = () => {
           <AccordionButtonLeftIcon>
             <Icon as={Icon24Settings} />
           </AccordionButtonLeftIcon>
-          <AccordionButtonText>Настройки профиля</AccordionButtonText>
+          <AccordionButtonText>
+            {translate('profile.settings', 'Настройки профиля')}
+          </AccordionButtonText>
         </Button>
       )}
       <Divider variant="accordion" />
@@ -105,11 +124,13 @@ export const Settings = () => {
         onChange={(e) => changeLang(e.target.value as Lang)}
         getValueLabel={(value) => (Guards.isString(value) ? Languages[value as Lang] : value)}
         options={languagesOptions}
-        label="Язык"
+        label={translate('profile.lang', 'Язык')}
       />
       {isAuth && (
         <Button size="sm" fontSize={'md'} variant={'link'}>
-          Выйти
+          <chakra.span width="full" textAlign="left">
+            {translate('profile.exit', 'Выйти')}
+          </chakra.span>
         </Button>
       )}
     </VStack>

@@ -1,4 +1,5 @@
 import { Drawer, DrawerBody, DrawerContent, DrawerOverlay, Flex } from '@chakra-ui/react'
+import { useTranslate } from 'src/proccess'
 import { useSidebar } from './provider'
 import { Dropdowns, Settings } from './ui'
 
@@ -9,6 +10,8 @@ export type SidebarRefCurrent = {
 
 const Sidebar = () => {
   const sidebar = useSidebar()
+
+  const { translate } = useTranslate('Sidebar')
 
   if (!sidebar.visibility) {
     return null
@@ -29,7 +32,7 @@ const Sidebar = () => {
         <DrawerBody px={2}>
           <Flex height="100%" flexDirection={'column'}>
             <Dropdowns />
-            <Settings />
+            <Settings translate={translate} />
           </Flex>
         </DrawerBody>
       </DrawerContent>

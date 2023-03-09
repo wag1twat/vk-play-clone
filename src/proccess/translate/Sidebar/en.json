@@ -1,0 +1,10 @@
+{
+  "profile": {
+    "notifications": "Notifications",
+    "vkplay": "Profile VK Play",
+    "settings": "Profile settings",
+    "support": "Support",
+    "lang": "Language",
+    "exit": "Exit"
+  }
+}
