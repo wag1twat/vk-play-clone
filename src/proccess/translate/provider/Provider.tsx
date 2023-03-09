@@ -6,7 +6,7 @@ const key = 'lang'
 
 export const Provider = (props: React.PropsWithChildren<{}>) => {
   const [lang, setLang] = React.useState<Lang>(
-    () => (globalThis.localStorage.getItem(key) as Lang | null) || 'en'
+    () => (globalThis.localStorage.getItem(key) as Lang | null) || 'ru'
   )
 
   const changeLang = React.useCallback((lang: Lang) => {

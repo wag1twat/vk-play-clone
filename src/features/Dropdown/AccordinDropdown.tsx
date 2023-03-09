@@ -12,8 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { Icon24ChevronDown, Icon24ChevronUp } from '@vkontakte/icons'
 import React from 'react'
-import { deepEqual } from 'shulga-app-core'
-import { useDropdownConfig } from './model'
+import { $Array, deepEqual } from 'shulga-app-core'
 import { DropdownItem } from './types'
 import { AccordionButtonLeftIcon, AccordionButtonRightIcon, AccordionButtonText } from './ui'
 
@@ -34,7 +33,7 @@ export const AccordinDropdown = React.memo(
     __deep = 1,
     ...props
   }: AccordinDropdownProps) => {
-    const { isRender, group } = useDropdownConfig(dropdowns)
+    const groups = React.useMemo(() => $Array(dropdowns).groupBy('group'), [dropdowns])
 
     const handleItemClick = React.useCallback(
       (item: DropdownItem) => () => {
@@ -45,13 +44,9 @@ export const AccordinDropdown = React.memo(
       [onItemClick]
     )
 
-    if (!isRender) {
-      return null
-    }
-
     return (
       <Flex width="full" flexDirection={'column'} {...props}>
-        {group.entries.map(([key, items], index) => {
+        {groups.entries.map(([key, items], index) => {
           return (
             <React.Fragment key={key}>
               <Accordion variant="dropdown" allowMultiple>
@@ -59,7 +54,7 @@ export const AccordinDropdown = React.memo(
                   return (
                     <AccordionItem key={item.id} border="none">
                       {({ isExpanded }) => {
-                        if (!item.childrens || item.childrens.length === 0) {
+                        if (!item.items || item.items.length === 0) {
                           return (
                             <Button
                               variant="accordion"
@@ -86,7 +81,7 @@ export const AccordinDropdown = React.memo(
                                 key={item.id}
                                 onItemClick={onItemClick}
                                 getItemLabel={getItemLabel}
-                                dropdowns={item.childrens}
+                                dropdowns={item.items}
                                 preventBorderDeep={preventBorderDeep}
                                 __deep={__deep + 1}
                               />
@@ -98,7 +93,7 @@ export const AccordinDropdown = React.memo(
                   )
                 })}
                 <Box
-                  hidden={!(index !== group.entries.length - 1) || __deep === preventBorderDeep}
+                  hidden={!(index !== groups.entries.length - 1) || __deep === preventBorderDeep}
                   py={2}
                   pr={2}
                   pl={8}

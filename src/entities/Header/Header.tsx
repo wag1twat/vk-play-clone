@@ -52,7 +52,7 @@ const Header = (props: HeaderProps) => {
                   }}
                 />
               )}
-              <Tooltip label={translate('tooltip.search', 'Поиск')} hasArrow>
+              <Tooltip label={translate('tooltip.search', 'Поиск')} hasArrow shouldWrapChildren>
                 <IconButton
                   hidden={searchInputController.isOpen && !modalVisible}
                   variant="icon"

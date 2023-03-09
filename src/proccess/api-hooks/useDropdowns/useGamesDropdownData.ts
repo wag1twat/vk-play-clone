@@ -4,60 +4,50 @@ import { Dropdown } from './types'
 
 const data = [
   {
-    id: 0,
+    id: 'games-free',
     group: '1',
-    key: 'games-free',
     placeholder: 'Бесплатные',
   },
   {
-    id: 1,
+    id: 'games-paid',
     group: '1',
-    key: 'games-paid',
     placeholder: 'Платные',
   },
   {
-    id: 2,
-    group: '2',
-    key: 'games-simple',
+    id: 'games-simple',
     placeholder: 'Простые',
-
-    childrens: [
+    group: '2',
+    items: [
       {
-        id: 3,
+        id: 'games-forGoyim',
         group: '1',
-        key: 'games-forGoyim',
         placeholder: 'Для гоев',
       },
       {
-        id: 4,
+        id: 'games-forNorms',
         group: '1',
-        key: 'games-forNorms',
         placeholder: 'Для нормисов',
       },
       {
-        id: 5,
+        id: 'games-forShrek',
         group: '1',
-        key: 'games-forShrek',
         placeholder: 'Для шрек энджоеров',
       },
     ],
   },
   {
-    id: 3,
+    id: 'games-novelties',
     group: '2',
-    key: 'games-novelties',
     placeholder: 'Новинки',
   },
   {
-    id: 4,
+    id: 'games-cloud',
     group: '2',
-    key: 'games-cloud',
     placeholder: 'Облачные',
   },
   {
-    id: 5,
+    id: 'games-market',
     group: '3',
-    key: 'games-market',
     placeholder: 'Торговая площадка',
   },
 ]

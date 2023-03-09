@@ -72,6 +72,66 @@ const components: Record<string, StyleConfig> = {
       },
     },
   },
+  Menu: {
+    variants: {
+      dropdown: {
+        list: {
+          color: 'white.brand-700',
+          bg: 'rgba(50, 50, 54)',
+          fontSize: 'sm',
+          fontWeight: 400,
+          borderStyle: 'solid',
+          borderColor: 'white.brand-100',
+          borderWidth: '0.5px',
+          zIndex(theme) {
+            return theme.zIndices.popover
+          },
+        },
+        button: {
+          color: 'inherit',
+          bg: 'transparent',
+          opacity: '.8',
+          transition: 'opacity .1s',
+          lineHeight: 6,
+          _hover: {
+            color: 'white.brand-900',
+            opacity: 1,
+            transition: 'opacity .1s',
+            bg: 'blackAlpha.400',
+          },
+          '.menu-button-left-icon': {
+            float: 'left',
+            mr: 3,
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            width: 6,
+            height: 6,
+          },
+          '.menu-button-right-icon': {
+            float: 'right',
+            ml: 3,
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            width: 6,
+            height: 6,
+          },
+        },
+        item: {
+          bg: 'transparent',
+          color: 'inherit',
+          opacity: '.8',
+          transition: 'opacity .1s',
+          lineHeight: 6,
+          _hover: {
+            color: 'white.brand-900',
+            opacity: 1,
+            transition: 'opacity .1s',
+            bg: 'blackAlpha.400',
+          },
+        },
+      },
+    },
+  },
   List: {
     variants: {
       dropdown: {
@@ -123,6 +183,7 @@ const components: Record<string, StyleConfig> = {
   Link: {
     variants: {
       underlining: {
+        display: 'inline-block',
         color: 'white.brand-700',
         fontSize: 'lg',
         alignItems: 'center',
@@ -145,17 +206,25 @@ const components: Record<string, StyleConfig> = {
           transition: 'opacity .1s',
           textDecoration: 'none',
         },
-        '&[data-active=false]:hover': {
+
+        '&:hover': {
           color: 'white.brand',
           textDecoration: 'none',
           _after: {
             opacity: 1,
           },
         },
-        '&[data-dropdown=true]:hover > .dropdown': {
-          visibility: 'visible',
+        '&[data-hover=true]': {
+          color: 'white.brand',
+          textDecoration: 'none',
+          _after: {
+            opacity: 1,
+          },
         },
-        '&:hover': {
+        '&[data-hover=false]': {
+          textDecoration: 'none',
+        },
+        '&[data-active=false]:hover': {
           color: 'white.brand',
           textDecoration: 'none',
           _after: {
@@ -180,7 +249,7 @@ const components: Record<string, StyleConfig> = {
         transition: 'color .1s',
         _hover: {
           transition: 'color .1s',
-          color: 'white.brand',
+          color: 'white.brand-900',
           backgroundColor: 'white.brand-50',
         },
       },
@@ -189,7 +258,7 @@ const components: Record<string, StyleConfig> = {
         fontWeight: '400',
         ':hover': {
           textDecoration: 'none',
-          color: 'white.brand-900'
+          color: 'white.brand-900',
         },
       },
       accordion({ theme }) {
@@ -303,7 +372,7 @@ const components: Record<string, StyleConfig> = {
         padding: '2px 5px 1px',
         transition: 'background-color .1s',
         textAlign: 'center',
-        lineHeight: 3,
+        lineHeight: 'normal',
         letterSpacing: '.4px',
         display: 'inline-block',
       }
@@ -346,7 +415,7 @@ const components: Record<string, StyleConfig> = {
         width: '100%',
         maxWidth: '7xl',
         margin: 'auto',
-        px: 4,
+        px: [2, 2, 2, 4, 8],
       }
     },
   },

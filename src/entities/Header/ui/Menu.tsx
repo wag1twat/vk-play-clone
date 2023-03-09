@@ -2,7 +2,8 @@ import { Link, HStack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Path } from 'shulga-app-core'
-import { HoverDropdown, DropdownItem } from 'src/features'
+import { ExpirementalDropdownItem } from 'src/features'
+import { ExpirementalDropdown } from 'src/features/Dropdown/ExpirementalDropdown'
 import { isRoute, routes, useCoincidenceBreakpoint } from 'src/proccess'
 import { useDropdowns } from 'src/proccess/api-hooks'
 import { Translate, TranslateFn } from 'src/proccess/translate'
@@ -20,9 +21,9 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
 
   const { games, tournaments, media, translate: translateDropdown } = useDropdowns()
 
-  const getItemLabel = React.useCallback(
-    (item: DropdownItem) =>
-      translateDropdown(item.key as Path<Translate['Dropdowns']>, item.placeholder),
+  const itemLabel = React.useCallback(
+    (item: ExpirementalDropdownItem) =>
+      translateDropdown(item.id as Path<Translate['Dropdowns']>, item.placeholder),
     [translateDropdown]
   )
 
@@ -34,45 +35,33 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
 
   const moreVisible = useCoincidenceBreakpoint(['xlg', 'md'])
 
-  const moreDropdowns = React.useMemo(() => {
-    return ([] as DropdownItem[]).concat(
-      !mediaVisible
-        ? [
-            {
-              id: 1,
-              group: 'media',
-              key: 'media',
-              placeholder: 'Медиа',
-              childrens: media.data,
-            },
-          ]
-        : [],
-      !tournamentsVisible
-        ? [
-            {
-              id: 1,
-              group: 'tournaments',
-              key: 'tournaments',
-              placeholder: 'Турниры',
-              childrens: tournaments.data,
-            },
-          ]
-        : []
-    )
-  }, [media.data, mediaVisible, tournaments.data, tournamentsVisible])
-
   return (
     <HStack flexGrow={1} spacing={6} pt={2} justifyContent="flex-start">
       {anyVisible && (
-        <Link
-          onClick={() => navigate(routes.games.path)}
-          variant="underlining"
-          data-active={isRoute('games', location)}
-          data-dropdown={true}
-        >
-          <Text>{translate('links.games', 'Игры')}</Text>
-          <HoverDropdown getItemLabel={getItemLabel} dropdowns={games.data} />
-        </Link>
+        <ExpirementalDropdown
+          menuButtonProps={{
+            p: 0,
+            opacity: 1,
+            width: 'min-content',
+            _hover: {
+              bg: 'transparent',
+            },
+          }}
+          placement="bottom-start"
+          offset={[-8, -2]}
+          itemLabel={itemLabel}
+          label={(props) => (
+            <Link
+              onClick={() => navigate(routes.games.path)}
+              variant="underlining"
+              data-active={isRoute('games', location)}
+              data-hover={props.isOpen}
+            >
+              <Text>{translate('links.games', 'Игры')}</Text>
+            </Link>
+          )}
+          items={games.data}
+        />
       )}
       {anyVisible && (
         <Link
@@ -84,39 +73,92 @@ export const Menu = ({ translate, isOpenSearch, children }: React.PropsWithChild
         </Link>
       )}
       {tournamentsVisible && (
-        <Link
-          onClick={() => navigate(routes.tournaments.path)}
-          variant="underlining"
-          data-active={isRoute('tournaments', location)}
-          data-dropdown={true}
-        >
-          <Text>{translate('links.tournaments', 'Турниры')}</Text>
-          <HoverDropdown getItemLabel={getItemLabel} dropdowns={tournaments.data} />
-        </Link>
+        <ExpirementalDropdown
+          menuButtonProps={{
+            p: 0,
+            opacity: 1,
+            width: 'min-content',
+            _hover: {
+              bg: 'transparent',
+            },
+          }}
+          placement="bottom-start"
+          offset={[-8, -2]}
+          itemLabel={itemLabel}
+          label={(props) => (
+            <Link
+              onClick={() => navigate(routes.tournaments.path)}
+              variant="underlining"
+              data-active={isRoute('tournaments', location)}
+              data-hover={props.isOpen}
+            >
+              <Text>{translate('links.tournaments', 'Турниры')}</Text>
+            </Link>
+          )}
+          items={tournaments.data}
+        />
       )}
       {mediaVisible && (
-        <Link
-          onClick={() => navigate(routes.media.path)}
-          variant="underlining"
-          data-dropdown={true}
-          data-active={isRoute('media', location)}
-        >
-          <Text>{translate('links.media', 'Медиа')}</Text>
-          <HoverDropdown getItemLabel={getItemLabel} dropdowns={media.data} />
-        </Link>
+        <ExpirementalDropdown
+          menuButtonProps={{
+            p: 0,
+            opacity: 1,
+            width: 'min-content',
+            _hover: {
+              bg: 'transparent',
+            },
+          }}
+          placement="bottom-start"
+          offset={[-8, -2]}
+          itemLabel={itemLabel}
+          label={(props) => (
+            <Link
+              onClick={() => navigate(routes.media.path)}
+              variant="underlining"
+              data-active={isRoute('media', location)}
+              data-hover={props.isOpen}
+            >
+              <Text>{translate('links.media', 'Медиа')}</Text>
+            </Link>
+          )}
+          items={media.data}
+        />
       )}
       {moreVisible && (
-        <Link
-          data-dropdown={true}
-          variant={'underlining'}
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
+        <ExpirementalDropdown
+          menuButtonProps={{
+            p: 0,
+            opacity: 1,
+            width: 'min-content',
+            _hover: {
+              bg: 'transparent',
+            },
           }}
-        >
-          <Text>{translate('links.more', 'Ещё')}</Text>
-          <HoverDropdown getItemLabel={getItemLabel} dropdowns={moreDropdowns} />
-        </Link>
+          placement="bottom-start"
+          itemLabel={itemLabel}
+          offset={[-8, -2]}
+          label={(props) => (
+            <Link data-hover={props.isOpen} variant={'underlining'}>
+              <Text>{translate('links.more', 'Ещё')}</Text>
+            </Link>
+          )}
+          items={[
+            {
+              id: 'tournaments',
+              group: '1',
+              placeholder: 'Турниры',
+              items: tournaments.data,
+              visible: !tournamentsVisible,
+            },
+            {
+              id: 'media',
+              group: '1',
+              placeholder: 'Медиа',
+              items: media.data,
+              visible: !mediaVisible,
+            },
+          ]}
+        />
       )}
       {children}
       <UserMenu translate={translate} />

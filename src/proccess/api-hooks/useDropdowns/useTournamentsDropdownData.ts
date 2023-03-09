@@ -4,21 +4,18 @@ import { Dropdown } from './types'
 
 const data = [
   {
-    id: 0,
+    id: 'tournaments-all',
     group: '1',
-    key: 'tournaments-all',
     placeholder: 'Все турниры',
   },
   {
-    id: 1,
+    id: 'tournaments-partners',
     group: '1',
-    key: 'tournaments-partners',
     placeholder: 'Напарники',
   },
   {
-    id: 2,
+    id: 'tournaments-ratings',
     group: '1',
-    key: 'tournaments-ratings',
     placeholder: 'Рейтинги',
   },
 ]

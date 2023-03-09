@@ -1,8 +1,8 @@
 interface Dropdown {
-  id: number
+  id: string
   group: string
-  key: string
   placeholder: string
+  items?: Dropdown[]
 }
 
 export type { Dropdown }

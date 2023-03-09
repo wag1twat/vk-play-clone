@@ -11,7 +11,7 @@ export const Dropdowns = () => {
   const { games, tournaments, media, translate } = useDropdowns()
 
   const getItemLabel = React.useCallback(
-    (item: DropdownItem) => translate(item.key as Path<Translate['Dropdowns']>, item.placeholder),
+    (item: DropdownItem) => translate(item.id as Path<Translate['Dropdowns']>, item.placeholder),
     [translate]
   )
 
@@ -21,30 +21,25 @@ export const Dropdowns = () => {
         getItemLabel={getItemLabel}
         dropdowns={[
           {
-            id: 0,
+            id: 'games',
             group: 'games',
-            key: 'games',
             placeholder: 'Игры',
-            leftIcon: <Icon as={Icon24Game} />,
-            childrens: games.data,
+            leftIcon: <Icon24Game />,
+            items: games.data,
           },
           {
-            id: 1,
             group: 'tournaments',
-            key: 'tournaments',
+            id: 'tournaments',
             placeholder: 'Турниры',
-            leftIcon: (
-              <Icon as={Icon28EmblemOutline} style={{ width: 'inherit', height: 'inherit' }} />
-            ),
-            childrens: tournaments.data,
+            leftIcon: <Icon as={Icon28EmblemOutline} width="inherit" height="inherit" />,
+            items: tournaments.data,
           },
           {
-            id: 3,
             group: 'media',
-            key: 'media',
+            id: 'media',
             placeholder: 'Медиа',
             leftIcon: <Icon as={Icon24BookSpreadOutline} />,
-            childrens: media.data,
+            items: media.data,
           },
         ]}
       />

@@ -4,33 +4,28 @@ import { Dropdown } from './types'
 
 const data = [
   {
-    id: 0,
+    id: 'media-all',
     group: '1',
-    key: 'media-all',
     placeholder: 'Все материалы',
   },
   {
-    id: 1,
+    id: 'media-news',
     group: '1',
-    key: 'media-news',
     placeholder: 'Новости игр',
   },
   {
-    id: 2,
+    id: 'media-esports',
     group: '1',
-    key: 'media-esports',
     placeholder: 'Киберспорт',
   },
   {
-    id: 3,
+    id: 'media-community',
     group: '2',
-    key: 'media-community',
     placeholder: 'Сообщество',
   },
   {
-    id: 4,
+    id: 'media-future',
     group: '2',
-    key: 'media-future',
     placeholder: 'Игры Будущего',
   },
 ]
