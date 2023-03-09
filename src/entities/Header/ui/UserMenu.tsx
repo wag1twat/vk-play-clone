@@ -92,11 +92,16 @@ export const UserMenu = ({ translate }: UserMenuProps) => {
           />
         )}
         items={[
-          { id: 'profile', group: '1', placeholder: 'Профиль VK Play', leftIcon: <Icon24User /> },
           {
-            id: 'profile-settings',
+            id: 'vkplay',
             group: '1',
-            placeholder: 'Настройки профиля',
+            placeholder: translate('profile.vkplay', 'Профиль VK Play'),
+            leftIcon: <Icon24User />,
+          },
+          {
+            id: 'settings',
+            group: '1',
+            placeholder: translate('profile.settings', 'Настройки профиля'),
             leftIcon: <Icon24Settings />,
             afterComponent: (
               <CopyClickboard
@@ -117,13 +122,13 @@ export const UserMenu = ({ translate }: UserMenuProps) => {
           {
             id: 'support',
             group: '2',
-            placeholder: 'Служба поддержки',
+            placeholder: translate('profile.support', 'Служба поддержки'),
             leftIcon: <Icon24QuestionOutline />,
           },
           {
             id: 'lang',
             group: '2',
-            placeholder: 'Язык',
+            placeholder: translate('profile.lang', 'Язык'),
             leftIcon: <Icon24Globe />,
             items: [
               {
@@ -143,7 +148,7 @@ export const UserMenu = ({ translate }: UserMenuProps) => {
           {
             id: 'exit',
             group: '3',
-            placeholder: 'Выйти',
+            placeholder: translate('profile.exit', 'Выйти'),
           },
         ]}
       />
