@@ -19,6 +19,8 @@ const Header = (props: HeaderProps) => {
 
   const [searchValue, setSearchValue] = React.useState('')
 
+  const deferredSearchValue = React.useDeferredValue(searchValue)
+
   const modalVisible = useCoincidenceBreakpoint(['sm', 'xs', 'base'])
 
   return (
@@ -38,7 +40,7 @@ const Header = (props: HeaderProps) => {
               {searchInputController.isOpen && !modalVisible && (
                 <SearchInput
                   inputProps={{
-                    value: searchValue,
+                    value: deferredSearchValue,
                     onChange: (e) => {
                       e.stopPropagation()
                       setSearchValue(e.target.value)
@@ -94,7 +96,7 @@ const Header = (props: HeaderProps) => {
             return (
               <SearchInput
                 inputProps={{
-                  value: searchValue,
+                  value: deferredSearchValue,
                   onChange: (e) => {
                     e.stopPropagation()
                     setSearchValue(e.target.value)
