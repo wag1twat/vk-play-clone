@@ -1,2 +1,2 @@
-export * from './AccordinDropdown'
+export * from './AccordionDropdown'
 export * from './types'

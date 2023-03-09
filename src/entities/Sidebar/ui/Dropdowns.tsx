@@ -2,7 +2,7 @@ import { Icon } from '@chakra-ui/react'
 import { Icon24BookSpreadOutline, Icon24Game, Icon28EmblemOutline } from '@vkontakte/icons'
 import React from 'react'
 import { Path } from 'shulga-app-core'
-import { AccordinDropdown, DropdownItem } from 'src/features'
+import { AccordionDropdown, DropdownItem } from 'src/features'
 import { Translate } from 'src/proccess'
 import { useDropdowns } from 'src/proccess/api-hooks'
 import { ScrollLayout } from 'src/theme/components'
@@ -17,7 +17,7 @@ export const Dropdowns = () => {
 
   return (
     <ScrollLayout px={2} flexGrow={1}>
-      <AccordinDropdown
+      <AccordionDropdown
         getItemLabel={getItemLabel}
         dropdowns={[
           {

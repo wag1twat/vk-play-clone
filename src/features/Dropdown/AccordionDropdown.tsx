@@ -16,7 +16,7 @@ import { $Array, deepEqual } from 'shulga-app-core'
 import { DropdownItem } from './types'
 import { AccordionButtonLeftIcon, AccordionButtonRightIcon, AccordionButtonText } from './ui'
 
-interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
+interface AccordionDropdownProps extends Omit<FlexProps, 'children'> {
   dropdowns?: DropdownItem[]
   preventBorderDeep?: number
   onItemClick?: (item: DropdownItem) => void
@@ -24,7 +24,7 @@ interface AccordinDropdownProps extends Omit<FlexProps, 'children'> {
   __deep?: number
 }
 
-export const AccordinDropdown = React.memo(
+export const AccordionDropdown = React.memo(
   ({
     dropdowns = [],
     onItemClick,
@@ -32,7 +32,7 @@ export const AccordinDropdown = React.memo(
     preventBorderDeep = 1,
     __deep = 1,
     ...props
-  }: AccordinDropdownProps) => {
+  }: AccordionDropdownProps) => {
     const groups = React.useMemo(() => $Array(dropdowns).groupBy('group'), [dropdowns])
 
     const handleItemClick = React.useCallback(
@@ -77,7 +77,7 @@ export const AccordinDropdown = React.memo(
                               </AccordionButtonRightIcon>
                             </AccordionButton>
                             <AccordionPanel p={0}>
-                              <AccordinDropdown
+                              <AccordionDropdown
                                 key={item.id}
                                 onItemClick={onItemClick}
                                 getItemLabel={getItemLabel}
