@@ -14,5 +14,13 @@
     "sales": "Акции",
     "notifications": "Уведомления",
     "messenger": "Мессенджер"
+  },
+  "profile": {
+    "notifications": "Уведомления",
+    "vkplay": "Профиль VK Play",
+    "settings": "Настройки профиля",
+    "support": "Служба поддержки",
+    "lang": "Язык",
+    "exit": "Выход"
   }
 }
