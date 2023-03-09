@@ -5,6 +5,10 @@
     "settings": "Profile settings",
     "support": "Support",
     "lang": "Language",
-    "exit": "Exit"
+    "exit": "Exit",
+    "clickboard-id": {
+      "aria-label": "Copy id",
+      "toast-message": "Copied"
+    }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { HStack, IconButton, Icon, Tooltip, Img } from '@chakra-ui/react'
+import { HStack, IconButton, Icon, Tooltip, Img, Text } from '@chakra-ui/react'
 import {
   Icon20Check,
   Icon24DiscountOutline,
@@ -10,10 +10,11 @@ import {
   Icon24Settings,
   Icon24User,
 } from '@vkontakte/icons'
-import { useNotifiers } from 'src/entities'
+import { useNotifiers, useUser } from 'src/entities'
 import { useCoincidenceBreakpoint, TranslateFn, useLang } from 'src/proccess'
 import { PinnedIconButton } from 'src/shared/PinnedIconButton'
 import { ExpirementalDropdown } from 'src/features/Dropdown/ExpirementalDropdown'
+import { CopyClickboard, useToast } from 'src/features'
 
 interface UserMenuProps {
   translate: TranslateFn<'Header'>
@@ -23,6 +24,10 @@ export const UserMenu = ({ translate }: UserMenuProps) => {
   const { lang, changeLang } = useLang()
 
   const { notifications } = useNotifiers()
+
+  const { profile } = useUser()
+
+  const { system } = useToast()
 
   const userVisible = useCoincidenceBreakpoint(['2xl', 'xl', 'lg'])
 
@@ -93,6 +98,21 @@ export const UserMenu = ({ translate }: UserMenuProps) => {
             group: '1',
             placeholder: 'Настройки профиля',
             leftIcon: <Icon24Settings />,
+            afterComponent: (
+              <CopyClickboard
+                ariaLabel={translate('profile.clickboard-id.aria-label', 'Скопировать ID')}
+                value={profile.data?.id}
+                hidden={!profile.data?.id}
+                pl={12}
+                onCopy={() =>
+                  system(() => (
+                    <Text width="full" textAlign="center">
+                      {translate('profile.clickboard-id.toast-message', 'Скопировано')}
+                    </Text>
+                  ))
+                }
+              >{`ID: ${profile.data?.id}`}</CopyClickboard>
+            ),
           },
           {
             id: 'support',

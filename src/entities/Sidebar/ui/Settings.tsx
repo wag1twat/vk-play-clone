@@ -1,6 +1,5 @@
-import { Divider, VStack, Icon, Flex, chakra, IconButton, Text, Button } from '@chakra-ui/react'
+import { Divider, VStack, Icon, chakra, Text, Button } from '@chakra-ui/react'
 import {
-  Icon24CopyOutline,
   Icon24NotificationOutline,
   Icon24QuestionOutline,
   Icon24Settings,
@@ -8,20 +7,13 @@ import {
 } from '@vkontakte/icons'
 import { Guards } from 'shulga-app-core'
 import { useNotifiers, useUser } from 'src/entities'
-import { useToast } from 'src/features'
+import { CopyClickboard, useToast } from 'src/features'
 import {
   AccordionButtonLeftIcon,
   AccordionButtonRightIcon,
   AccordionButtonText,
 } from 'src/features/Dropdown/ui'
-import {
-  Lang,
-  Languages,
-  languagesOptions,
-  TranslateFn,
-  useCopyClickboard,
-  useLang,
-} from 'src/proccess'
+import { Lang, Languages, languagesOptions, TranslateFn, useLang } from 'src/proccess'
 import { BaseSelect } from 'src/shared/Select'
 import { Pin } from 'src/theme/components'
 
@@ -37,8 +29,6 @@ export const Settings = ({ translate }: SettingsProps) => {
   const { isAuth, profile } = useUser()
 
   const { notifications } = useNotifiers()
-
-  const copyClickboard = useCopyClickboard()
 
   return (
     <VStack p={2} height="fit-content" alignItems={'flex-start'}>
@@ -77,36 +67,19 @@ export const Settings = ({ translate }: SettingsProps) => {
         </Button>
       )}
       {isAuth && (
-        <Flex
-          fontSize="inherit"
-          color="white.brand-400"
-          fontWeight={400}
-          letterSpacing=".6px"
-          width="100%"
-          pl={8}
-          alignItems="center"
+        <CopyClickboard
+          ariaLabel={translate('profile.clickboard-id.aria-label', 'Скопировать ID')}
+          value={profile.data?.id}
           hidden={!profile.data?.id}
-        >
-          <chakra.span userSelect={'none'}>ID: {profile.data?.id}</chakra.span>
-          <IconButton
-            ml={2}
-            size="sm"
-            color="inherit"
-            variant="icon"
-            aria-label="Скопировать ID"
-            onClick={() =>
-              copyClickboard(profile.data?.id, () =>
-                system(() => (
-                  <Text width="full" textAlign="center">
-                    Скопировано
-                  </Text>
-                ))
-              )
-            }
-          >
-            <Icon as={Icon24CopyOutline} />
-          </IconButton>
-        </Flex>
+          pl={8}
+          onCopy={() =>
+            system(() => (
+              <Text width="full" textAlign="center">
+                {translate('profile.clickboard-id.toast-message', 'Скопировано')}
+              </Text>
+            ))
+          }
+        >{`ID: ${profile.data?.id}`}</CopyClickboard>
       )}
       {isAuth && (
         <Button size="xs" variant="accordion" data-expander={false} hidden={!profile.data?.id}>
