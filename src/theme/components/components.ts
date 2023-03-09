@@ -115,6 +115,9 @@ const components: Record<string, StyleConfig> = {
             width: 6,
             height: 6,
           },
+          span: {
+            pointerEvents: 'unset'
+          }
         },
         item: {
           bg: 'transparent',
