@@ -19,9 +19,9 @@ export const Carousel = ({ slideWidth, slideHeight, children, ...props }: Carous
 
   const settings = React.useRef<Settings>({
     className: 'center',
+    centerPadding: '60px',
     centerMode: true,
     infinite: true,
-    centerPadding: '60px',
     slidesToShow: 1,
     slidesPerRow: 1,
     speed: 500,
@@ -31,7 +31,15 @@ export const Carousel = ({ slideWidth, slideHeight, children, ...props }: Carous
     nextArrow: undefined,
     prevArrow: undefined,
     arrows: false,
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
   })
+
+  React.useEffect(() => {
+    console.log(ref?.innerSlider)
+  }, [ref?.innerSlider])
 
   if (React.Children.count(children) === 0) {
     return null
@@ -73,7 +81,7 @@ export const Carousel = ({ slideWidth, slideHeight, children, ...props }: Carous
           return (
             <CarouselItemLayout
               key={index}
-              style={{ width: slideWidth }}
+              style={{ width: `${slideWidth}px` }}
               height={`${slideHeight}px`}
             >
               {child}

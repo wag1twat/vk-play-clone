@@ -17,7 +17,7 @@ enum Components {
   '_CarouselLayout' = '_CarouselLayout',
   '_CarouselSideLayout' = '_CarouselSideLayout',
   '_CarouselArrowIconLayout' = '_CarouselArrowIconLayout',
-  '_CarouselItemLayout' = '_CarouselItemLayout'
+  '_CarouselItemLayout' = '_CarouselItemLayout',
 }
 
 const components: Record<string, StyleConfig> = {
@@ -384,12 +384,80 @@ const components: Record<string, StyleConfig> = {
         '.slick-slider': {
           touchAction: 'pan-y',
         },
+        ".slick-slider:hover .slick-dots li.slick-active": {
+          button: {
+            ":after": {
+              animation: 'unset'
+            }
+          }
+        },
+        '.slick-dots li.slick-active': {
+          button: {
+            ':before': {
+              backgroundColor: '#d4d4d4',
+            },
+            ':after': {
+              content: `''`,
+              position: 'absolute',
+              top: '10px',
+              left: 0,
+              height: '4px',
+              backgroundColor: '#7f8792',
+              opacity: 0.4,
+              willChange: 'opacity',
+              width: '0%',
+              borderStyle: 'solid',
+              borderWidth: '1px',
+              borderColor: '#d4d4d4',
+              animation: 'resizedotsbar 5s linear',
+              '@keyframes resizedotsbar': {
+                '0%': {
+                  width: '0%'
+                },
+                '100%':{
+                  width: '100%'
+                }
+              },
+            },
+          },
+       
+        },
+        '.slick-slider .slick-dots': {
+          button: {
+            position: 'relative',
+            zIndex: 5,
+            padding: 0,
+            fontSize: 0,
+            textIndent: '-9999px',
+            overflow: 'hidden',
+            height: '25px',
+            background: 'none',
+            border: 'none',
+            outline: 'none',
+            cursor: 'pointer',
+            appearance: 'none',
+            tapHighlightColor: 'transparent',
+            ':before': {
+              content: `''`,
+              position: 'absolute',
+              top: '11px',
+              left: 0,
+              height: '2px',
+              backgroundColor: '#7f8792',
+              borderRadius: '2px',
+              opacity: 0.4,
+              willChange: 'opacity',
+            },
+            ':hover:before': {
+              backgroundColor: '#d4d4d4',
+            },
+          },
+        },
         '.slick-slider .slick-track': { transition: 'left .3s ease-out;' },
-
         '.slick-slide': {
           transform: 'scale(.95) translateZ(0);',
           transition: 'transform .3s',
-          overflow: 'hidden'
+          overflow: 'hidden',
         },
         '.slick-slide + .slick-center': {
           transform: 'scale(1) translateZ(0);',
@@ -402,59 +470,60 @@ const components: Record<string, StyleConfig> = {
           left: [0, 0, 0, 0, -2, -2, -2],
         },
       }
-    }
+    },
   },
   [Components._CarouselSideLayout]: {
     baseStyle: () => {
       return {
-        cursor: "pointer",
-        display: "block",
-        position: "absolute",
+        cursor: 'pointer',
+        display: 'block',
+        position: 'absolute',
         zIndex: 20,
-        opacity: ".3",color: "white.brand-700",
-        ":after":{
+        opacity: '.3',
+        color: 'white.brand-700',
+        ':after': {
           content: `''`,
           position: 'absolute',
           width: '50%',
           height: 'calc(100% - 16px)',
           top: 2,
         },
-        ":hover":{
-        color: 'white.brand-900',
-        opacity: 1,
+        ':hover': {
+          color: 'white.brand-900',
+          opacity: 1,
         },
-        ":hover:after":{
-          background: 'none'
-        }
+        ':hover:after': {
+          background: 'none',
+        },
       }
-    }
+    },
   },
   [Components._CarouselArrowIconLayout]: {
     baseStyle: () => {
       return {
-        position: "absolute",
-      width: "38px",
-      height: "38px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "blackAlpha.900",
-      borderRadius: 6,
-      
+        position: 'absolute',
+        width: '38px',
+        height: '38px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'blackAlpha.900',
+        borderRadius: 6,
       }
-    }
+    },
   },
   [Components._CarouselItemLayout]: {
     baseStyle: () => {
       return {
         borderRadius: 10,
-        borderStyle: "solid",
-        borderWidth: "1px",
-        borderColor: "white.brand-500",
-        overflow: 'hidden'
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        borderColor: 'white.brand-500',
+        overflow: 'hidden',
+        background: 'gray.700',
       }
-    }
-  }
+    },
+  },
 }
 
 const ScrollLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
@@ -488,22 +557,39 @@ const CarouselLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
   return React.createElement(chakra.div, { __css: styles, ...props, ref })
 })
 
-const CarouselSideLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
-  const styles = useStyleConfig(Components._CarouselSideLayout)
+const CarouselSideLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
+  (props, ref) => {
+    const styles = useStyleConfig(Components._CarouselSideLayout)
 
-  return React.createElement(chakra.div, { __css: styles, ...props, ref })
-})
+    return React.createElement(chakra.div, { __css: styles, ...props, ref })
+  }
+)
 
-const CarouselArrowIconLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
-  const styles = useStyleConfig(Components._CarouselArrowIconLayout)
+const CarouselArrowIconLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
+  (props, ref) => {
+    const styles = useStyleConfig(Components._CarouselArrowIconLayout)
 
-  return React.createElement(chakra.div, { __css: styles, ...props, ref })
-})
+    return React.createElement(chakra.div, { __css: styles, ...props, ref })
+  }
+)
 
-const CarouselItemLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>((props, ref) => {
-  const styles = useStyleConfig(Components._CarouselItemLayout)
+const CarouselItemLayout = forwardRef<HTMLChakraProps<'div'> & ThemingProps, 'div'>(
+  (props, ref) => {
+    const styles = useStyleConfig(Components._CarouselItemLayout)
 
-  return React.createElement(chakra.div, { __css: styles, ...props, ref })
-})
+    return React.createElement(chakra.div, { __css: styles, ...props, ref })
+  }
+)
 
-export { ScrollLayout, PageBackground, HeaderWrapper, Pin, ContentLayout,CarouselLayout,CarouselSideLayout,CarouselItemLayout,CarouselArrowIconLayout, components }
+export {
+  ScrollLayout,
+  PageBackground,
+  HeaderWrapper,
+  Pin,
+  ContentLayout,
+  CarouselLayout,
+  CarouselSideLayout,
+  CarouselItemLayout,
+  CarouselArrowIconLayout,
+  components,
+}

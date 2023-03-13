@@ -8,10 +8,10 @@ export const sidebarTranslate = Record({
     support: String,
     lang: String,
     exit: String,
-    "clickboard-id": Record({
-        "aria-label": String,
-        "toast-message": String
-      })
+    'clickboard-id': Record({
+      'aria-label': String,
+      'toast-message': String,
+    }),
   }),
 })
 
