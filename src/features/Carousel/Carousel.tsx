@@ -12,12 +12,20 @@ import {
   CarouselItemLayout,
 } from 'src/theme/components'
 
-interface CarouselProps extends Sizes, BoxProps {}
+interface CarouselProps extends Sizes, BoxProps {
+  settings?: Settings
+}
 
-export const Carousel = ({ slideWidth, slideHeight, children, ...props }: CarouselProps) => {
+export const Carousel = ({
+  slideWidth,
+  slideHeight,
+  settings = {},
+  children,
+  ...props
+}: CarouselProps) => {
   const [ref, setRef] = React.useState<Slider | null>(null)
 
-  const settings = React.useRef<Settings>({
+  const defaultSettings = React.useRef<Settings>({
     className: 'center',
     centerPadding: '60px',
     centerMode: true,
@@ -76,7 +84,7 @@ export const Carousel = ({ slideWidth, slideHeight, children, ...props }: Carous
           <Icon24ChevronRight />
         </CarouselArrowIconLayout>
       </CarouselSideLayout>
-      <Slider ref={setRef} {...settings.current}>
+      <Slider ref={setRef} {...Object.assign(defaultSettings.current, settings)}>
         {React.Children.map(children, (child, index) => {
           return (
             <CarouselItemLayout

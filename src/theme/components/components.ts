@@ -415,12 +415,12 @@ const components: Record<string, StyleConfig> = {
             },
           },
         },
-        ".slick-slider:hover .slick-dots li.slick-active": {
+        '.slick-slider:hover .slick-dots li.slick-active': {
           button: {
-            ":after": {
-              animation: 'none'
-            }
-          }
+            ':after': {
+              animation: 'none',
+            },
+          },
         },
         '.slick-dots li.slick-active': {
           button: {
@@ -443,15 +443,14 @@ const components: Record<string, StyleConfig> = {
               animation: 'resizedotsbar 5s linear',
               '@keyframes resizedotsbar': {
                 '0%': {
-                  width: '0%'
+                  width: '0%',
                 },
-                '100%':{
-                  width: '100%'
-                }
+                '100%': {
+                  width: '100%',
+                },
               },
             },
           },
-       
         },
         '.slick-slider .slick-track': { transition: 'left .3s ease-out;' },
         '.slick-slide': {
