@@ -384,10 +384,41 @@ const components: Record<string, StyleConfig> = {
         '.slick-slider': {
           touchAction: 'pan-y',
         },
+        '.slick-slider .slick-dots': {
+          button: {
+            position: 'relative',
+            zIndex: 5,
+            padding: 0,
+            fontSize: 0,
+            textIndent: '-9999px',
+            overflow: 'hidden',
+            height: '25px',
+            background: 'none',
+            border: 'none',
+            outline: 'none',
+            cursor: 'pointer',
+            appearance: 'none',
+            tapHighlightColor: 'transparent',
+            ':before': {
+              content: `''`,
+              position: 'absolute',
+              top: '11px',
+              left: 0,
+              height: '2px',
+              backgroundColor: '#7f8792',
+              borderRadius: '2px',
+              opacity: 0.4,
+              willChange: 'opacity',
+            },
+            ':hover:before': {
+              backgroundColor: '#d4d4d4',
+            },
+          },
+        },
         ".slick-slider:hover .slick-dots li.slick-active": {
           button: {
             ":after": {
-              animation: 'unset'
+              animation: 'none'
             }
           }
         },
@@ -421,37 +452,6 @@ const components: Record<string, StyleConfig> = {
             },
           },
        
-        },
-        '.slick-slider .slick-dots': {
-          button: {
-            position: 'relative',
-            zIndex: 5,
-            padding: 0,
-            fontSize: 0,
-            textIndent: '-9999px',
-            overflow: 'hidden',
-            height: '25px',
-            background: 'none',
-            border: 'none',
-            outline: 'none',
-            cursor: 'pointer',
-            appearance: 'none',
-            tapHighlightColor: 'transparent',
-            ':before': {
-              content: `''`,
-              position: 'absolute',
-              top: '11px',
-              left: 0,
-              height: '2px',
-              backgroundColor: '#7f8792',
-              borderRadius: '2px',
-              opacity: 0.4,
-              willChange: 'opacity',
-            },
-            ':hover:before': {
-              backgroundColor: '#d4d4d4',
-            },
-          },
         },
         '.slick-slider .slick-track': { transition: 'left .3s ease-out;' },
         '.slick-slide': {
