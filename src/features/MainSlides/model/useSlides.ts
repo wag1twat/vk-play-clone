@@ -12,7 +12,7 @@ interface Slide {
 }
 
 export const useSlides = () => {
-  const { translate } = useTranslate('pages/Main/Slides')
+  const { translate } = useTranslate('MainSlides')
 
   const slides = React.useMemo<Slide[]>(
     () => [
