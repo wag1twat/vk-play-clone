@@ -9,7 +9,7 @@ const Games = React.lazy(() => import('src/pages/Games'))
 const Live = React.lazy(() => import('src/pages/Live'))
 const Tournaments = React.lazy(() => import('src/pages/Tournaments'))
 const Media = React.lazy(() => import('src/pages/Media'))
-const Index = React.lazy(() => import('src/pages/Index'))
+const Main = React.lazy(() => import('src/pages/Main'))
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
           path="*"
           element={
             <React.Suspense>
-              <Index />
+              <Main />
             </React.Suspense>
           }
         />

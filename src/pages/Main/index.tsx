@@ -4,9 +4,10 @@ import { Carousel } from 'src/features/Carousel'
 import { bigLorem } from 'src/proccess/lorem'
 import { PageLayout } from 'src/shared/Layout'
 import { ContentLayout } from 'src/theme/components'
-import { useCarouselSlides } from './model'
+import { useSlides } from './model'
+import { Link } from 'react-router-dom'
 
-const Index = () => {
+const Main = () => {
   const basicSlideWidth = React.useRef<number>(760)
   const aspect = React.useRef(1.9)
 
@@ -21,7 +22,7 @@ const Index = () => {
     basicSlideWidth.current,
   ])
 
-  const slides = useCarouselSlides()
+  const slides = useSlides()
 
   if (slideWidth === undefined) {
     return null
@@ -37,32 +38,33 @@ const Index = () => {
         >
           {slides.map((slide) => {
             return (
-              <Box
-                key={slide.id}
-                backgroundImage={slide.url}
-                backgroundPosition="center"
-                backgroundSize="cover"
-                height="100%"
-                width="100%"
-                cursor="pointer"
-                position="relative"
-              >
-                <HStack
-                  position="absolute"
-                  bottom={0}
-                  spacing={6}
-                  p={6}
-                  alignItems="flex-end"
-                  bgImage={slide.gradient}
+              <Link key={slide.id} to={slide.to}>
+                <Box
+                  backgroundImage={slide.url}
+                  backgroundPosition="center"
+                  backgroundSize="cover"
+                  height="100%"
+                  width="100%"
+                  cursor="pointer"
+                  position="relative"
                 >
-                  <Box>
-                    <chakra.span color="white.brand-900">{slide.desc}</chakra.span>
-                  </Box>
-                  <Box flexBasis="30%">
-                    <Button width="full">{slide.button}</Button>
-                  </Box>
-                </HStack>
-              </Box>
+                  <HStack
+                    position="absolute"
+                    bottom={0}
+                    spacing={6}
+                    p={6}
+                    alignItems="flex-end"
+                    bgImage={slide.gradient}
+                  >
+                    <Box>
+                      <chakra.span color="white.brand-900">{slide.desc}</chakra.span>
+                    </Box>
+                    <Box flexBasis="30%">
+                      <Button width="full">{slide.button}</Button>
+                    </Box>
+                  </HStack>
+                </Box>
+              </Link>
             )
           })}
         </Carousel>
@@ -78,4 +80,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default Main

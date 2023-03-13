@@ -45,10 +45,6 @@ export const Carousel = ({
     pauseOnHover: true,
   })
 
-  React.useEffect(() => {
-    console.log(ref?.innerSlider)
-  }, [ref?.innerSlider])
-
   if (React.Children.count(children) === 0) {
     return null
   }
