@@ -1,5 +1,5 @@
 import { BoxProps } from '@chakra-ui/react'
-import { ScrollLayout, PageBackground, ContentLayout } from 'src/theme/components'
+import { ScrollLayout, PageBackground } from 'src/theme/components'
 
 interface PageLayoutProps extends BoxProps {}
 
@@ -13,9 +13,8 @@ const PageLayout = ({
         _before={{
           backgroundImage,
         }}
-      >
-        <ContentLayout {...props} />
-      </PageBackground>
+        {...props}
+      />
     </ScrollLayout>
   )
 }

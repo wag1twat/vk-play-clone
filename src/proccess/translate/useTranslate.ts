@@ -18,8 +18,7 @@ const syncLoadModule = (entity: Entity, lang: Lang, pending: () => void) => {
     try {
       const result = require(`${createPath(entity, lang)}`)
       resolve(result)
-    } 
-    catch (err) {
+    } catch (err) {
       reject(err)
     }
   })
